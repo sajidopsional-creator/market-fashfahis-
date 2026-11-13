@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FASHFAHIS MARKET</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+html,body{width:100vw;height:100vh;overflow:hidden;background:#131722;color:#d1d4dc;font-size:12px;user-select:none}
+:root{--p:#1e222d;--p2:#2a2e39;--bd:#2a2e39;--dim:#787b86;--g:#26a69a;--r:#ef5350;--y:#ffb74d;--b:#2962ff;--btc:#f7931a;--red-logo:#ff3333}
+.login{position:fixed;inset:0;background:linear-gradient(135deg,#0f1729,#1a1e2a);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
+.login.hide{display:none}
+.lbox{background:var(--p);border-radius:12px;width:360px;max-width:100%;padding:26px;border:1px solid #2d3748}
+.llogo{text-align:center;margin-bottom:18px}
+.llogo h1{font-size:21px;background:linear-gradient(90deg,#26a69a,#2962ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.llogo p{font-size:10px;color:var(--dim);margin-top:2px}
+.ltabs{display:flex;background:var(--p2);border-radius:6px;padding:3px;margin-bottom:16px}
+.ltab{flex:1;padding:8px;text-align:center;font-size:11px;font-weight:700;color:var(--dim);cursor:pointer;border-radius:4px;text-transform:uppercase}
+.ltab.on{background:var(--b);color:#fff}
+.lf{margin-bottom:10px}
+.lf label{display:block;font-size:9px;color:var(--dim);margin-bottom:4px;text-transform:uppercase;font-weight:600}
+.lf input{width:100%;background:var(--p2);border:1px solid var(--bd);border-radius:5px;padding:10px 12px;color:#d1d4dc;font-size:12px;outline:none}
+.lf input:focus{border-color:var(--b)}
+.lbtn{width:100%;padding:11px;border:none;border-radius:5px;background:linear-gradient(135deg,#2962ff,#1e40af);color:#fff;font-weight:700;font-size:12px;cursor:pointer;text-transform:uppercase;margin-top:6px}
+.lmsg{padding:8px 10px;border-radius:4px;font-size:10px;margin-bottom:10px;display:none}
+.lmsg.on{display:block}
+.lmsg.err{background:rgba(239,83,80,.15);color:#ef5350;border:1px solid rgba(239,83,80,.3)}
+.lmsg.ok{background:rgba(38,166,154,.15);color:#26a69a;border:1px solid rgba(38,166,154,.3)}
+.lhint{text-align:center;font-size:10px;color:var(--dim);margin-top:12px}
+
+/* TOP BAR */
+.top{height:44px;background:var(--p);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 12px;gap:10px;flex-shrink:0}
+.logo{font-weight:700;font-size:14px;background:linear-gradient(90deg,#26a69a,#2962ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+.badge{background:linear-gradient(90deg,#2962ff,#1e40af);color:#fff;padding:2px 7px;border-radius:3px;font-size:9px;font-weight:700}
+.info{margin-left:auto;display:flex;gap:12px;align-items:center;font-size:10px;color:var(--dim)}
+.info b{color:#d1d4dc;font-family:'Courier New',monospace}
+.uc{display:flex;align-items:center;gap:6px;background:var(--p2);padding:4px 8px;border-radius:4px;font-size:10px;cursor:pointer;border:1px solid transparent;transition:0.2s}
+.uc:hover{border-color:var(--b)}
+.uc .av{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#26a69a,#2962ff);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;position:relative;background-size:cover;background-position:center}
+.uc .av.adm{background:linear-gradient(135deg,#ffb74d,#ff9800);color:#1a1a1a}
+.uc .av .lvl-badge{position:absolute;bottom:-4px;right:-4px;background:#131722;color:var(--y);font-size:7px;padding:1px 3px;border-radius:4px;border:1px solid var(--y)}
+.uc .rl{font-size:8px;padding:1px 4px;border-radius:2px;background:#4b5563;color:#fff}
+.uc .rl.adm{background:linear-gradient(135deg,#ffb74d,#ff9800);color:#1a1a1a}
+.abtn{background:linear-gradient(135deg,#ffb74d,#ff9800);color:#1a1a1a;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer;border:none;display:flex;align-items:center;gap:4px}
+.msg-btn{background:rgba(41,98,255,.15);color:#60a5fa;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid rgba(41,98,255,.3);position:relative}
+.msg-badge{position:absolute;top:-5px;right:-5px;background:var(--r);color:#fff;font-size:9px;font-weight:bold;padding:1px 5px;border-radius:10px;border:1px solid var(--p)}
+.lo{background:rgba(239,83,80,.15);color:#ef5350;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid rgba(239,83,80,.3)}
+
+/* MENU & VIEWS */
+.mtabs{display:flex;background:var(--p);border-bottom:1px solid var(--bd);padding:0 12px;gap:2px;flex-shrink:0}
+.mtab{padding:10px 20px;font-size:11px;font-weight:700;cursor:pointer;color:var(--dim);border-bottom:2px solid transparent;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:6px}
+.mtab.on{color:#d1d4dc;border-bottom-color:var(--b)}
+.page{display:none;height:calc(100vh - 44px - 40px - 22px);width:100vw}
+.page.on{display:block}
+.view{display:none;height:calc(100vh - 44px - 22px);overflow:hidden}
+.view.on{display:flex;flex-direction:column}
+
+/* LAYOUT UTAMA */
+.layout{display:grid;grid-template-columns:200px 1fr 270px;height:100%;width:100%}
+.wl{background:var(--p);border-right:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden;min-height:0}
+.wlh{padding:7px 10px;font-size:9px;color:var(--dim);text-transform:uppercase;font-weight:600;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;flex-shrink:0}
+.wll{flex:1;overflow-y:auto;min-height:0}
+.wi{display:grid;grid-template-columns:1fr auto;padding:6px 10px;cursor:pointer;border-bottom:1px solid #1a1e2a}
+.wi:hover{background:var(--p2)}.wi.on{background:#1a2540;border-left:2px solid var(--b)}
+.wi .c{font-weight:700;font-size:10px}.wi .nm{font-size:8px;color:var(--dim);white-space:nowrap;max-width:95px;overflow:hidden;text-overflow:ellipsis}
+.wi .r{text-align:right}.wi .p{font-family:'Courier New',monospace;font-size:10px;font-weight:600}.wi .ch{font-size:8px;font-weight:600}
+.up{color:var(--g)}.dn{color:var(--r)}
+.ct{display:flex;flex-direction:column;overflow:hidden;background:#131722;min-height:0;min-width:0}
+.tb{height:32px;background:var(--p);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 6px;gap:2px;flex-shrink:0}
+.tf{padding:3px 6px;border-radius:3px;cursor:pointer;color:var(--dim);font-size:9px;font-weight:600;border:none;background:transparent}
+.tf:hover{background:var(--p2);color:#d1d4dc}.tf.on{background:var(--b);color:#fff}
+.tbd{width:1px;height:16px;background:var(--bd);margin:0 3px}
+.tbtn{padding:3px 6px;border-radius:3px;cursor:pointer;color:var(--dim);font-size:9px;background:transparent;border:none}
+.tbtn:hover{background:var(--p2);color:#d1d4dc}
+.cm{flex:1;position:relative;min-height:0;min-width:0}
+#ch{width:100%;height:100%;display:block;cursor:crosshair}
+.ohlc{position:absolute;top:4px;left:8px;background:rgba(30,34,45,.85);padding:4px 7px;border-radius:3px;font-size:9px;font-family:'Courier New',monospace;display:flex;gap:8px;pointer-events:none;border:1px solid var(--bd)}
+.ohlc .l{color:var(--dim)}
+.rp{background:var(--p);border-left:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden;min-height:0}
+.tabs{display:flex;background:var(--p2);border-bottom:1px solid var(--bd);flex-shrink:0}
+.tab{flex:1;padding:8px;text-align:center;font-size:9px;font-weight:600;cursor:pointer;color:var(--dim);text-transform:uppercase;border-bottom:2px solid transparent}
+.tab.on{color:#d1d4dc;border-bottom-color:var(--b)}
+.pb{flex:1;overflow-y:auto;display:none;flex-direction:column;min-height:0}
+.pb.on{display:flex}
+
+/* ORDER BOOK */
+.obh{display:grid;grid-template-columns:1fr 1fr 1fr;padding:4px 8px;font-size:8px;color:var(--dim);text-transform:uppercase;border-bottom:1px solid var(--bd)}
+.obr{display:grid;grid-template-columns:1fr 1fr 1fr;padding:2px 8px;font-family:'Courier New',monospace;font-size:9px;position:relative}
+.obr:hover{background:var(--p2)}.obr span{position:relative;z-index:1}
+.obr .d{position:absolute;top:0;bottom:0;right:0;opacity:.15}
+.obr.ask .d{background:var(--r)}.obr.bid .d{background:var(--g)}
+.obr .ap{color:var(--r);text-align:center}.obr .bp{color:var(--g);text-align:center}
+.obr .q{text-align:right;color:var(--dim)}.obr .ql{text-align:left;color:var(--dim)}
+.spr{padding:4px 8px;text-align:center;font-size:9px;color:var(--dim);background:#0d1117;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);font-family:'Courier New',monospace}
+.spr b{color:#d1d4dc}
+.tfrm{padding:8px}
+.ttabs{display:flex;gap:4px;margin-bottom:8px}
+.ttabs button{flex:1;padding:7px;border-radius:4px;border:none;background:var(--p2);color:var(--dim);font-weight:700;font-size:10px;cursor:pointer}
+.ttabs button.buy.on{background:var(--g);color:#fff}
+.ttabs button.sell.on{background:var(--r);color:#fff}
+.fld{margin-bottom:6px}
+.fld label{display:block;font-size:8px;color:var(--dim);margin-bottom:2px;text-transform:uppercase;font-weight:600}
+.iw{display:flex;background:var(--p2);border-radius:4px;border:1px solid transparent}
+.iw:focus-within{border-color:var(--b)}
+.iw input{flex:1;background:transparent;border:none;padding:6px 8px;color:#d1d4dc;font-size:12px;font-family:'Courier New',monospace;font-weight:600;outline:none;width:100%}
+.iw .u{padding:6px 8px;color:var(--dim);font-size:9px;background:rgba(0,0,0,.2);border-left:1px solid var(--bd)}
+.pct{display:flex;gap:2px;margin-top:3px}
+.pct button{flex:1;padding:2px;font-size:8px;background:var(--p2);border:none;border-radius:2px;color:var(--dim);cursor:pointer}
+.oi{background:#0d1117;border-radius:4px;padding:6px 8px;margin-bottom:8px;font-size:9px}
+.oi .r{display:flex;justify-content:space-between;padding:1px 0;color:var(--dim)}
+.oi .r b{color:#d1d4dc;font-family:'Courier New',monospace}
+.oi .r.tot{border-top:1px solid var(--bd);padding-top:4px;margin-top:3px;font-size:10px}
+.oi .r.tot b{color:var(--y);font-size:11px}
+.eb{width:100%;padding:9px;border:none;border-radius:4px;font-weight:700;font-size:11px;cursor:pointer;text-transform:uppercase}
+.eb.buy{background:linear-gradient(135deg,#26a69a,#00c853);color:#fff}
+.eb.sell{background:linear-gradient(135deg,#ef5350,#c62828);color:#fff}
+.pfs{padding:8px;background:linear-gradient(135deg,#1a2540,#0f1729);border-bottom:1px solid var(--bd)}
+.pfs .l{font-size:8px;color:var(--dim);text-transform:uppercase}
+.pfs .v{font-size:14px;font-weight:700;font-family:'Courier New',monospace;margin-top:1px}
+.pfs .pn{font-size:10px;font-weight:600;margin-top:1px}
+.pfr{display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:5px 8px;font-size:9px;border-bottom:1px solid #1a1e2a}
+.pfr.hd{color:var(--dim);font-size:8px;text-transform:uppercase;font-weight:600;background:#181b24}
+.pfr .c{font-weight:700}.pfr .c small{display:block;color:var(--dim);font-weight:400;font-size:7px}
+.pfr .num{text-align:right;font-family:'Courier New',monospace}
+.pfe{padding:20px 8px;text-align:center;color:var(--dim);font-size:9px}
+
+/* BITCOIN */
+.btc-page{padding:20px;overflow-y:auto;height:100%;background:#131722}
+.btc-wrap{max-width:900px;margin:0 auto}
+.btc-top{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.btc-box{background:linear-gradient(135deg,#2a1a0f,#1a1208);border-radius:10px;padding:20px;border:1px solid #3d2a15}
+.btc-box .lbl{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.btc-box .big{font-size:36px;font-weight:700;font-family:'Courier New',monospace;color:var(--btc);margin-top:6px;line-height:1}
+.btc-box .sub{font-size:11px;color:var(--dim);margin-top:6px}
+.btc-box .sub b{color:#d1d4dc;font-family:'Courier New',monospace}
+.btc-box .rate-badge{display:inline-block;background:rgba(247,147,26,.15);border:1px solid rgba(247,147,26,.4);color:var(--btc);padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;margin-top:10px}
+.btc-box.wallet{background:linear-gradient(135deg,#1a1208,#0f0a05)}
+.btc-convert{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.ccard{background:var(--p);border-radius:10px;padding:16px;border:1px solid var(--bd)}
+.ccard.buy{border-color:rgba(247,147,26,.3)}
+.ccard.sell{border-color:rgba(41,98,255,.3)}
+.ccard h3{font-size:13px;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.ccard.buy h3{color:var(--btc)}
+.ccard.sell h3{color:#60a5fa}
+.ccard .desc{font-size:10px;color:var(--dim);margin-bottom:12px}
+.cfld{margin-bottom:10px}
+.cfld label{display:block;font-size:9px;color:var(--dim);margin-bottom:4px;text-transform:uppercase;font-weight:600}
+.ciw{display:flex;background:var(--p2);border-radius:5px;border:1px solid var(--bd)}
+.ccard.buy .ciw:focus-within{border-color:var(--btc)}
+.ccard.sell .ciw:focus-within{border-color:var(--b)}
+.ciw input{flex:1;background:transparent;border:none;padding:10px 12px;color:#d1d4dc;font-size:14px;font-family:'Courier New',monospace;font-weight:700;outline:none;width:100%}
+.ciw .u{padding:10px 12px;color:var(--dim);font-size:10px;background:rgba(0,0,0,.2);border-left:1px solid var(--bd);display:flex;align-items:center;font-weight:600}
+.cpct{display:flex;gap:3px;margin-top:4px}
+.cpct button{flex:1;padding:4px;font-size:9px;background:var(--p2);border:1px solid var(--bd);border-radius:3px;color:var(--dim);cursor:pointer;font-weight:700}
+.cpreview{background:#0d1117;border-radius:5px;padding:10px;margin:10px 0;font-size:10px}
+.cpreview .row{display:flex;justify-content:space-between;padding:2px 0;color:var(--dim)}
+.cpreview .row b{color:#d1d4dc;font-family:'Courier New',monospace}
+.cpreview .row.result{border-top:1px solid var(--bd);padding-top:6px;margin-top:4px;font-size:12px}
+.cpreview .row.result b{font-size:14px}
+.ccard.buy .cpreview .row.result b{color:var(--btc)}
+.ccard.sell .cpreview .row.result b{color:#60a5fa}
+.cbtn{width:100%;padding:11px;border:none;border-radius:5px;font-weight:700;font-size:12px;cursor:pointer;text-transform:uppercase;letter-spacing:.5px}
+.ccard.buy .cbtn{background:linear-gradient(135deg,#f7931a,#ff9800);color:#fff}
+.ccard.sell .cbtn{background:linear-gradient(135deg,#2962ff,#1e40af);color:#fff}
+.btc-hist{background:var(--p);border-radius:10px;border:1px solid var(--bd);overflow:hidden}
+.btc-hist .hdr{padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
+.btc-hist .hdr h3{font-size:11px;color:#d1d4dc;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.btc-hist .hdr .cnt{font-size:10px;padding:2px 8px;background:var(--p2);border-radius:10px;color:var(--btc);font-family:'Courier New',monospace;font-weight:700}
+.btc-hist-list{max-height:280px;overflow-y:auto}
+.hrow{display:grid;grid-template-columns:60px 1fr 1fr 1fr;padding:10px 16px;border-bottom:1px solid #1a1e2a;align-items:center;font-size:11px;gap:8px}
+.hrow:last-child{border:none}
+.hrow .badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;text-align:center;width:fit-content}
+.hrow .badge.buy{background:rgba(247,147,26,.15);color:var(--btc)}
+.hrow .badge.sell{background:rgba(41,98,255,.15);color:#60a5fa}
+.hrow .t{color:var(--dim);font-family:'Courier New',monospace;font-size:10px}
+.hrow .btc-amt{font-family:'Courier New',monospace;font-weight:700;color:var(--btc);text-align:right}
+.hrow .idr-amt{font-family:'Courier New',monospace;font-weight:700;text-align:right}
+.hrow .idr-amt.in{color:var(--g)}
+.hrow .idr-amt.out{color:var(--r)}
+.hempty{text-align:center;color:var(--dim);padding:32px;font-size:11px}
+
+/* LEADERBOARD */
+.leaderboard-container{padding:20px;max-width:800px;margin:0 auto;overflow-y:auto;height:100%}
+.lb-header{text-align:center;margin-bottom:20px}
+.lb-header h2{font-size:20px;color:var(--y);font-weight:800}
+.lb-header p{font-size:11px;color:var(--dim)}
+.lb-list{display:flex;flex-direction:column;gap:10px}
+.lb-item{display:flex;align-items:center;padding:12px 16px;background:var(--p2);border-radius:8px;border:1px solid var(--bd);gap:14px}
+.lb-item.top1{border-color:#ffd700;background:linear-gradient(90deg,rgba(255,215,0,0.1),var(--p2))}
+.lb-item.top2{border-color:#c0c0c0;background:linear-gradient(90deg,rgba(192,192,192,0.1),var(--p2))}
+.lb-item.top3{border-color:#cd7f32;background:linear-gradient(90deg,rgba(205,127,50,0.1),var(--p2))}
+.lb-rank{font-size:18px;font-weight:800;width:30px;text-align:center;color:var(--dim)}
+.lb-item.top1 .lb-rank{color:#ffd700}
+.lb-item.top2 .lb-rank{color:#c0c0c0}
+.lb-item.top3 .lb-rank{color:#cd7f32}
+.lb-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#26a69a,#2962ff);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:bold;color:#fff;background-size:cover;background-position:center;position:relative}
+.lb-info{flex:1}
+.lb-name{font-size:14px;font-weight:bold;color:#d1d4dc;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.lb-lvl{font-size:10px;color:var(--y);font-weight:600}
+.lb-val{font-size:15px;font-weight:800;color:var(--g);font-family:'Courier New',monospace}
+
+/* BADGE PENGHARGAAN (Teks di samping nama) */
+.award-badge{font-size:8px;padding:1px 5px;border-radius:3px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;border:1px solid;text-shadow:0 0 2px rgba(0,0,0,0.5)}
+.award-eksekutif{background:linear-gradient(90deg,#1a1a1a,#333);color:#ffd700;border-color:#ffd700}
+.award-pro{background:linear-gradient(90deg,#ffd700,#ff8f00);color:#1a1a1a;border-color:#ff8f00;text-shadow:none}
+.award-master{background:linear-gradient(90deg,#ff3333,#b71c1c);color:#ffd700;border-color:#ffd700}
+.award-user{background:linear-gradient(90deg,#2962ff,#00e5ff);color:#fff;border-color:#00e5ff;text-shadow:none}
+
+/* LOGO AVATAR COLORS */
+.av.badge-blue, .lb-av.badge-blue, .profile-avatar.badge-blue, .av-opt.badge-blue{background:linear-gradient(135deg,#2962ff,#00e5ff);box-shadow:0 0 10px rgba(41,98,255,0.6);color:#fff}
+.av.badge-gold, .lb-av.badge-gold, .profile-avatar.badge-gold, .av-opt.badge-gold{background:linear-gradient(135deg,#ffd700,#ff8f00);box-shadow:0 0 10px rgba(255,215,0,0.6);color:#1a1a1a}
+.av.badge-master, .lb-av.badge-master, .profile-avatar.badge-master, .av-opt.badge-master{background:linear-gradient(135deg,#ff3333,#b71c1c);box-shadow:0 0 10px rgba(255,51,51,0.6);color:#fff}
+.av.badge-exec, .lb-av.badge-exec, .profile-avatar.badge-exec, .av-opt.badge-exec{background:linear-gradient(135deg,#1a1a1a,#333);box-shadow:0 0 10px rgba(255,215,0,0.4);color:#ffd700;border:2px solid #ffd700}
+
+/* FSHM TAG */
+.profile-avatar::after{content:'FSHM';position:absolute;bottom:-5px;right:-5px;background:#fff;font-size:8px;width:30px;height:18px;border-radius:10px;display:flex;align-items:center;justify-content:center;z-index:2;font-weight:900;letter-spacing:0.5px}
+.profile-avatar.badge-blue::after{color:#2962ff;border:1.5px solid #2962ff}
+.profile-avatar.badge-gold::after{color:#ff8f00;border:1.5px solid #ff8f00}
+.profile-avatar.badge-master::after{color:#b71c1c;border:1.5px solid #b71c1c}
+.profile-avatar.badge-exec::after{background:#ffd700;color:#1a1a1a;border:1.5px solid #1a1a1a}
+.profile-avatar.adm::after{content:'ADMIN';color:#1a1a1a;border:1.5px solid #1a1a1a;width:36px}
+.profile-avatar.adm{background:linear-gradient(135deg,#ffb74d,#ff9800)}
+
+/* ADMIN DASHBOARD */
+.adm-hdr{height:52px;background:linear-gradient(90deg,#1a1e2a,#0f1729);border-bottom:2px solid #ffb74d;display:flex;align-items:center;padding:0 16px;gap:14px;flex-shrink:0}
+.adm-logo{display:flex;align-items:center;gap:10px}
+.adm-logo .shield{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#ffb74d,#ff9800);display:flex;align-items:center;justify-content:center;font-size:18px}
+.adm-logo h1{font-size:15px;font-weight:800;color:#ffb74d}
+.adm-logo p{font-size:8px;color:var(--dim);text-transform:uppercase}
+.adm-sp{flex:1}
+.adm-info{display:flex;gap:14px;align-items:center;font-size:10px;color:var(--dim)}
+.adm-info b{color:#d1d4dc;font-family:'Courier New',monospace}
+.adm-btn-back{background:rgba(41,98,255,.15);color:#60a5fa;padding:6px 12px;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid rgba(41,98,255,.3)}
+.adm-btn-out{background:rgba(239,83,80,.15);color:#ef5350;padding:6px 12px;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid rgba(239,83,80,.3)}
+.admin-main{display:grid;grid-template-columns:1fr 320px;height:calc(100vh - 52px - 22px);gap:12px;padding:12px;overflow:hidden;background:#0f1419}
+.admin-left{display:flex;flex-direction:column;gap:12px;overflow:hidden;min-height:0}
+.admin-right{display:flex;flex-direction:column;gap:12px;overflow:hidden;min-height:0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex-shrink:0}
+.sc{background:linear-gradient(135deg,#1a2540,#0f1729);border-radius:8px;padding:12px;border:1px solid var(--bd);position:relative;overflow:hidden}
+.sc .lbl{font-size:9px;color:var(--dim);text-transform:uppercase;font-weight:600}
+.sc .val{font-size:20px;font-weight:700;font-family:'Courier New',monospace;margin-top:6px;color:#fff}
+.sc .val.g{color:var(--g)}.sc .val.y{color:var(--y)}.sc .val.b{color:#60a5fa}.sc .val.btc{color:var(--btc)}
+.sc .sub{font-size:9px;color:var(--dim);margin-top:3px}
+.sc .icon{position:absolute;bottom:8px;right:12px;font-size:22px;opacity:.35}
+.atabs{display:flex;background:var(--p);border-radius:8px;padding:4px;border:1px solid var(--bd);gap:4px;flex-shrink:0}
+.atab{flex:1;padding:10px;text-align:center;font-size:11px;font-weight:700;color:var(--dim);cursor:pointer;border-radius:6px;text-transform:uppercase}
+.atab.on{background:linear-gradient(135deg,#ffb74d,#ff9800);color:#1a1a1a}
+.atab.btc.on{background:linear-gradient(135deg,#f7931a,#ff9800);color:#fff}
+.pnl{background:var(--p);border-radius:8px;border:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden;min-height:0}
+.pnl-hdr{padding:10px 14px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.pnl-hdr h3{font-size:11px;font-weight:700;color:#d1d4dc;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.pnl-hdr .cnt{font-size:10px;padding:2px 8px;background:var(--p2);border-radius:10px;color:var(--y);font-family:'Courier New',monospace}
+.pnl-body{flex:1;overflow-y:auto;min-height:0}
+.user-search{padding:10px 14px;border-bottom:1px solid var(--bd)}
+.user-search input{width:100%;background:var(--p2);border:1px solid var(--bd);border-radius:5px;padding:8px 12px;color:#d1d4dc;font-size:11px;outline:none;font-family:'Courier New',monospace}
+.u-table{width:100%;border-collapse:collapse}
+.u-table th{background:#0f1419;padding:8px 12px;text-align:left;font-size:9px;color:var(--dim);text-transform:uppercase;font-weight:700;border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:2}
+.u-table th.r{text-align:right}
+.u-table td{padding:10px 12px;font-size:11px;border-bottom:1px solid #1a1e2a;vertical-align:middle}
+.u-table tr:hover{background:var(--p2)}
+.u-table tr.cur{background:rgba(41,98,255,.08);border-left:2px solid var(--b)}
+.u-table td.r{text-align:right;font-family:'Courier New',monospace}
+.u-table .uname{font-weight:700;color:#d1d4dc;display:flex;align-items:center;gap:6px}
+.u-table .uname .rl{font-size:7px;padding:1px 5px;border-radius:2px;background:#4b5563;color:#fff}
+.u-table .uname .rl.adm{background:linear-gradient(135deg,#ffb74d,#ff9800);color:#1a1a1a}
+.u-table .sub{font-size:8px;color:var(--dim);margin-top:2px}
+.u-table .bal{font-weight:700;font-family:'Courier New',monospace;color:var(--g)}
+.u-table .bal.inf{background:linear-gradient(90deg,#ffb74d,#ff9800);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.u-table .btc-bal{font-weight:700;font-family:'Courier New',monospace;color:var(--btc);font-size:10px}
+.act-btn{padding:4px 8px;border:none;border-radius:3px;font-size:9px;font-weight:700;cursor:pointer;margin:0 1px}
+.act-btn.add{background:rgba(38,166,154,.15);color:var(--g);border:1px solid rgba(38,166,154,.3)}
+.act-btn.set{background:rgba(41,98,255,.15);color:#60a5fa;border:1px solid rgba(41,98,255,.3)}
+.act-btn.rst{background:rgba(239,83,80,.15);color:var(--r);border:1px solid rgba(239,83,80,.3)}
+.act-btn.rev{background:rgba(255,183,77,.15);color:var(--y);border:1px solid rgba(255,183,77,.3)}
+.act-btn.btc-btn{background:rgba(247,147,26,.15);color:var(--btc);border:1px solid rgba(247,147,26,.3)}
+.act-btn:disabled{opacity:.3;cursor:not-allowed}
+.btc-admin{padding:14px}
+.btc-info{background:linear-gradient(135deg,#2a1a0f,#1a1208);border-radius:8px;padding:14px;border:1px solid #3d2a15;margin-bottom:14px;text-align:center}
+.btc-info .price{font-size:20px;font-weight:700;font-family:'Courier New',monospace;color:var(--btc);margin:4px 0}
+.btc-info .sub{font-size:10px;color:var(--dim)}
+.btc-section{background:var(--p2);border-radius:8px;padding:12px;margin-bottom:12px}
+.btc-section h4{font-size:10px;color:var(--y);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.btc-section h4::after{content:'';flex:1;height:1px;background:var(--bd)}
+.btc-input-row{display:flex;gap:6px;margin-bottom:8px}
+.btc-input-row input{flex:1;background:#0f1419;border:1px solid var(--bd);border-radius:5px;padding:9px 12px;color:#d1d4dc;font-size:12px;font-family:'Courier New',monospace;outline:none;font-weight:600}
+.btc-input-row button{background:linear-gradient(135deg,#f7931a,#ff9800);border:none;color:#fff;padding:9px 16px;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btc-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.btc-quick button{background:#0f1419;border:1px solid var(--bd);color:#d1d4dc;padding:7px 4px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:700;font-family:'Courier New',monospace}
+.btc-action-btn{padding:10px;border:none;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase}
+.btc-action-btn.reset{background:linear-gradient(135deg,#ff9800,#f57c00);color:#fff}
+.btc-action-btn.danger{background:linear-gradient(135deg,#ef5350,#c62828);color:#fff}
+.btc-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.btc-user-list{max-height:320px;overflow-y:auto;border-radius:6px;border:1px solid var(--bd);background:#0f1419}
+.btc-u-card{padding:10px 12px;border-bottom:1px solid #1a1e2a}
+.btc-u-card:last-child{border:none}
+.btc-u-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.btc-u-info{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.btc-u-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#f7931a,#ff9800);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.btc-u-detail{min-width:0;flex:1}
+.btc-u-detail .un{font-weight:700;font-size:11px;color:#d1d4dc}
+.btc-u-detail .meta{font-size:8px;color:var(--dim);margin-top:1px}
+.btc-u-balance{text-align:right;flex-shrink:0}
+.btc-u-balance .bal{font-size:11px;font-weight:700;font-family:'Courier New',monospace;color:var(--btc)}
+.btc-u-balance .sub{font-size:8px;color:var(--dim);margin-top:1px}
+.btc-u-actions{display:flex;gap:4px;margin-top:6px}
+.btc-u-actions button{flex:1;padding:5px 4px;border:none;border-radius:3px;font-size:9px;font-weight:700;cursor:pointer}
+.btc-u-actions .add{background:rgba(247,147,26,.15);color:var(--btc);border:1px solid rgba(247,147,26,.3)}
+.btc-u-actions .set{background:rgba(41,98,255,.15);color:#60a5fa;border:1px solid rgba(41,98,255,.3)}
+.btc-u-actions .rst{background:rgba(239,83,80,.15);color:var(--r);border:1px solid rgba(239,83,80,.3)}
+.tu-item{display:grid;grid-template-columns:24px 1fr auto;gap:8px;padding:8px 14px;align-items:center;border-bottom:1px solid #1a1e2a}
+.tu-item:last-child{border:none}
+.tu-item:hover{background:var(--p2)}
+.tu-item .rank{width:22px;height:22px;border-radius:50%;background:var(--p2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--dim)}
+.tu-item .rank.r1{background:linear-gradient(135deg,#ffd700,#ffb300);color:#1a1a1a}
+.tu-item .rank.r2{background:linear-gradient(135deg,#c0c0c0,#a0a0a0);color:#1a1a1a}
+.tu-item .rank.r3{background:linear-gradient(135deg,#cd7f32,#a0622a);color:#fff}
+.tu-item .info{min-width:0}
+.tu-item .info .nm{font-weight:700;font-size:11px;color:#d1d4dc;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tu-item .info .dt{font-size:8px;color:var(--dim);margin-top:1px}
+.tu-item .val{font-family:'Courier New',monospace;font-weight:700;font-size:11px;color:var(--g);text-align:right}
+.tu-item .val.btc{color:var(--btc)}
+.act-log{padding:4px 0}
+.act-item{padding:6px 14px;border-bottom:1px solid #1a1e2a;display:flex;gap:8px;align-items:flex-start;font-size:10px}
+.act-item:last-child{border:none}
+.act-item .t{color:var(--dim);font-size:9px;font-family:'Courier New',monospace;flex-shrink:0}
+.act-item .m{flex:1;color:#d1d4dc}
+.act-item .m .plus{color:var(--g);font-weight:700}
+.act-item .m .minus{color:var(--r);font-weight:700}
+.act-item .m .btc-hl{color:var(--btc);font-weight:700}
+.act-empty{text-align:center;color:var(--dim);padding:24px 14px;font-size:10px}
+
+/* MODAL & PROFIL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:400;display:none;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
+.modal.on{display:flex}
+.mbox{background:var(--p);border-radius:10px;width:400px;max-width:92vw;padding:22px;border:1px solid var(--bd)}
+.mbox h3{font-size:14px;font-weight:700;margin-bottom:4px;color:#d1d4dc}
+.mbox .sub{font-size:10px;color:var(--dim);margin-bottom:16px}
+.mbox .sub b{color:var(--y);font-family:'Courier New',monospace;font-size:11px}
+.mbox .fld label{font-size:9px;color:var(--dim);margin-bottom:4px;text-transform:uppercase;display:block;font-weight:600}
+.mbox .fld input{width:100%;background:var(--p2);border:1px solid var(--bd);border-radius:5px;padding:11px 12px;color:#d1d4dc;font-size:14px;font-family:'Courier New',monospace;font-weight:600;outline:none}
+.mactions{display:flex;gap:8px;margin-top:16px}
+.mactions button{flex:1;padding:10px;border:none;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase}
+.mactions .cancel{background:var(--p2);color:#d1d4dc}
+.mactions .confirm{background:linear-gradient(135deg,#26a69a,#00c853);color:#fff}
+
+.profile-card{background:var(--p);border-radius:10px;width:320px;padding:20px;text-align:center;border:1px solid var(--bd)}
+.profile-avatar{width:80px;height:80px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;position:relative;background-size:cover;background-position:center;border:2px solid transparent}
+.profile-name{font-size:18px;font-weight:700;color:#d1d4dc;display:flex;align-items:center;justify-content:center;gap:6px}
+.profile-id{font-size:10px;color:var(--dim);margin-bottom:12px}
+.profile-level{display:inline-block;background:rgba(255,183,77,.15);color:var(--y);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:10px}
+.exp-bar-container{width:100%;background:#0d1117;border-radius:10px;height:10px;margin-bottom:4px;overflow:hidden;border:1px solid var(--bd)}
+.exp-bar{height:100%;background:linear-gradient(90deg,#2962ff,#60a5fa);width:0%;transition:width 0.3s}
+.exp-text{font-size:9px;color:var(--dim);margin-bottom:16px}
+.btn-upload{background:var(--b);color:#fff;padding:6px 12px;border-radius:4px;font-size:10px;border:none;cursor:pointer;margin-bottom:12px;display:inline-block}
+.btn-transfer{width:100%;padding:10px;border:none;border-radius:5px;background:linear-gradient(135deg,#2962ff,#1e40af);color:#fff;font-weight:700;cursor:pointer;margin-bottom:8px}
+
+/* AVATAR SELECTOR */
+.avatar-options{display:flex;justify-content:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.av-opt{width:32px;height:32px;border-radius:50%;cursor:pointer;border:2px solid transparent;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold}
+.av-opt.active{border-color:#fff;box-shadow:0 0 8px rgba(255,255,255,0.5)}
+
+/* TEMAN */
+.friend-search{padding:10px;background:var(--p);border-bottom:1px solid var(--bd);display:flex;gap:6px}
+.friend-search input{flex:1;background:var(--p2);border:1px solid var(--bd);border-radius:5px;padding:8px;color:#d1d4dc;font-size:12px;outline:none}
+.friend-search button{background:var(--b);color:#fff;border:none;border-radius:5px;padding:0 12px;cursor:pointer;font-weight:bold}
+.friend-list{padding:10px}
+.friend-item{display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--p2);border-radius:6px;margin-bottom:6px}
+.friend-info{display:flex;align-items:center;gap:10px}
+.friend-av{width:30px;height:30px;border-radius:50%;background:var(--b);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;background-size:cover;background-position:center}
+
+/* INBOX PESAN */
+.msg-list{max-height:400px;overflow-y:auto;padding:10px}
+.msg-item{background:var(--p2);border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid var(--y)}
+.msg-item.read{border-left-color:var(--bd);opacity:0.7}
+.msg-hdr{display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-bottom:8px}
+.msg-body{font-size:12px;color:#d1d4dc;margin-bottom:10px}
+.msg-reward{background:rgba(255,183,77,.1);color:var(--y);padding:8px;border-radius:4px;font-size:11px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.btn-claim{background:var(--g);color:#fff;border:none;padding:6px 12px;border-radius:4px;font-size:10px;font-weight:bold;cursor:pointer}
+.btn-claimed{background:var(--bd);color:var(--dim);border:none;padding:6px 12px;border-radius:4px;font-size:10px;font-weight:bold;cursor:not-allowed}
+
+/* ADMIN INBOX LIST */
+.admin-msg-list{max-height:200px;overflow-y:auto;background:#0f1419;border-radius:6px;padding:8px;margin-top:10px}
+.admin-msg-item{background:var(--p2);padding:8px;border-radius:4px;margin-bottom:6px;font-size:10px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.admin-msg-item .txt{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* LAIN-LAIN */
+.sb{height:22px;background:var(--p2);border-top:1px solid var(--bd);display:flex;align-items:center;padding:0 10px;font-size:8px;color:var(--dim);gap:12px}
+.sb .i{display:flex;gap:3px;align-items:center}.sb .i b{color:#d1d4dc;font-family:'Courier New',monospace}
+.ts{position:fixed;bottom:30px;right:12px;background:var(--p2);border-left:3px solid var(--g);padding:10px 14px;border-radius:4px;box-shadow:0 8px 24px rgba(0,0,0,.6);min-width:240px;transform:translateX(400px);transition:transform .3s;z-index:999}
+.ts.on{transform:translateX(0)}.ts.err{border-left-color:var(--r)}
+.ts .t{font-weight:700;font-size:11px;margin-bottom:2px}.ts .m{font-size:10px;color:var(--dim)}
+.offline{background:rgba(239,83,80,.15);color:#ef5350;padding:3px 8px;border-radius:3px;font-size:9px;font-weight:700;display:none}
+
+/* CHECKBOX BTC */
+.btc-check{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--y);cursor:pointer;margin-top:6px}
+.btc-check input{width:14px;height:14px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="login" id="loginScreen">
+  <div class="lbox">
+    <div class="llogo"><h1>FASHFAHIS MARKET</h1><p>Simulasi Bursa Saham • Firebase</p></div>
+    <div class="ltabs">
+      <div class="ltab on" onclick="switchAuth('login')">Masuk</div>
+      <div class="ltab" onclick="switchAuth('register')">Daftar</div>
+    </div>
+    <div class="lmsg" id="loginMsg"></div>
+    <div id="loginForm">
+      <div class="lf"><label>Username</label><input type="text" id="liUser" placeholder="Username"></div>
+      <div class="lf"><label>Password</label><input type="password" id="liPass" placeholder="Password"></div>
+      <button class="lbtn" onclick="doLogin()">MASUK</button>
+    </div>
+    <div id="registerForm" style="display:none">
+      <div class="lf"><label>Username Baru</label><input type="text" id="rgUser" placeholder="Min 3 karakter"></div>
+      <div class="lf"><label>Password</label><input type="password" id="rgPass" placeholder="Min 4 karakter"></div>
+      <div class="lf"><label>Konfirmasi</label><input type="password" id="rgPass2" placeholder="Ulangi"></div>
+      <button class="lbtn" onclick="doRegister()">DAFTAR</button>
+      <div class="lhint">Saldo awal: <b style="color:#ffb74d">Rp 500.000</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="top" id="topBarUser">
+  <div class="logo">FASHFAHIS MARKET</div>
+  <div class="badge">📊 LIVE</div>
+  <div class="offline" id="offlineBadge">⚠ OFFLINE</div>
+  <div class="info">
+    <div>IHSG <b id="ihsg">7,245.32</b></div>
+    <div>₿ 1 BTC <b style="color:#f7931a">Rp 10.000</b></div>
+    <div id="clk">--:--:--</div>
+  </div>
+  <div class="uc" id="userChip" onclick="openProfile()">
+    <div class="av" id="userAv">?</div>
+    <span id="userUn">-</span>
+    <span class="rl" id="userRole">USER</span>
+  </div>
+  <button class="msg-btn" id="msgBtn" onclick="openInbox()" style="display:none">💬 PESAN <span class="msg-badge" id="msgBadge" style="display:none">0</span></button>
+  <button class="abtn" id="adminBtn" onclick="toggleAdmin()" style="display:none">⚙ ADMIN</button>
+  <button class="lo" onclick="doLogout()">⎋ LOGOUT</button>
+</div>
+
+<div class="adm-hdr" id="topBarAdmin" style="display:none">
+  <div class="adm-logo"><div class="shield">⚙️</div><div><h1>ADMIN DASHBOARD</h1><p>FASHFAHIS MARKET</p></div></div>
+  <div class="adm-sp"></div>
+  <div class="adm-info"><div>User <b id="hTotalUser">0</b></div><div>Equity <b id="hTotalEq">Rp 0</b></div><div>₿ Rate <b style="color:#f7931a">Rp 10.000/BTC</b></div><div id="clkAdm">--:--:--</div></div>
+  <button class="adm-btn-back" onclick="toggleAdmin()">👤 Mode User</button>
+  <button class="adm-btn-out" onclick="doLogout()">⎋ Logout</button>
+</div>
+
+<div class="view on" id="viewUser">
+  <div class="mtabs">
+    <div class="mtab on" id="mtTrader" onclick="switchPage('trader')">📈 Trader Saham</div>
+    <div class="mtab btc" id="mtBitcoin" onclick="switchPage('bitcoin')">₿ Bitcoin</div>
+    <div class="mtab" id="mtFriends" onclick="switchPage('friends')">👥 Teman</div>
+    <div class="mtab" id="mtRank" onclick="switchPage('rank')">🏆 Peringkat</div>
+  </div>
+  
+  <div class="page on" id="pageTrader">
+    <div class="layout">
+      <div class="wl"><div class="wlh"><span>Watchlist</span><span style="color:var(--b)">📊</span></div><div class="wll" id="wl"></div></div>
+      <div class="ct">
+        <div class="tb"><button class="tf" data-tf="1m">1m</button><button class="tf" data-tf="5m">5m</button><button class="tf" data-tf="15m">15m</button><button class="tf on" data-tf="1H">1H</button><button class="tf" data-tf="1D">1D</button><button class="tf" data-tf="1W">1W</button><div class="tbd"></div><button class="tbtn on" data-i="candle">🕯</button><button class="tbtn on" data-i="ma">📈</button><button class="tbtn on" data-i="volume">📊</button></div>
+        <div class="cm"><canvas id="ch"></canvas><div class="ohlc"><span><span class="l">O</span> <b id="oV">0</b></span><span><span class="l">H</span> <b id="hV">0</b></span><span><span class="l">L</span> <b id="lV">0</b></span><span><span class="l">C</span> <b id="cV">0</b></span><span><span class="l">Vol</span> <b id="vV">0</b></span></div></div>
+      </div>
+      <div class="rp">
+        <div class="tabs"><div class="tab on" data-tab="book">Order Book</div><div class="tab" data-tab="trade">Trade</div><div class="tab" data-tab="portfolio">Porto</div></div>
+        <div class="pb on" id="pb-book"><div class="obh"><span>Bid</span><span>Price</span><span>Ask</span></div><div id="obR"></div><div class="spr" id="spr">SPREAD <b>25</b></div></div>
+        <div class="pb" id="pb-trade">
+          <div class="tfrm">
+            <div class="ttabs"><button class="buy on" onclick="setS('buy')">BELI</button><button class="sell" onclick="setS('sell')">JUAL</button></div>
+            <div class="fld"><label>Harga</label><div class="iw"><input type="number" id="ip" value="9850" step="25"><span class="u">IDR</span></div></div>
+            <div class="fld"><label>Jumlah</label><div class="iw"><input type="number" id="iq" value="1" min="1"><span class="u">LOT</span></div><div class="pct"><button onclick="setP(25)">25%</button><button onclick="setP(50)">50%</button><button onclick="setP(75)">75%</button><button onclick="setP(100)">MAX</button></div></div>
+            
+            <div class="btc-check" id="payBtcWrap">
+              <input type="checkbox" id="payBtc" onchange="updOI()"> Bayar pakai Bitcoin (BTC)
+            </div>
+
+            <div class="oi" style="margin-top:8px">
+              <div class="r"><span>Harga</span><b id="oiP">Rp 9,850</b></div>
+              <div class="r"><span>Lembar</span><b id="oiS">100</b></div>
+              <div class="r"><span>Fee</span><b id="oiF">Rp 1,478</b></div>
+              <div class="r tot"><span>Total</span><b id="oiT">Rp 986,478</b></div>
+            </div>
+            <button class="eb buy" id="eb" onclick="exec()">BELI BBCA</button>
+          </div>
+        </div>
+        <div class="pb" id="pb-portfolio"><div class="pfs"><div class="l">Total Equity</div><div class="v" id="pe">Rp 500,000</div><div class="pn" id="pp">+Rp 0 (0.00%)</div></div><div class="pfr hd"><span>Saham</span><span style="text-align:right">Nilai</span><span style="text-align:right">P/L</span></div><div id="pb2"></div><div style="padding:7px 8px;font-size:9px;color:var(--dim);display:flex;justify-content:space-between;border-top:1px solid var(--bd)"><span>Cash</span><b style="color:#d1d4dc;font-family:'Courier New',monospace" id="pc">Rp 500,000</b></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="pageBitcoin">
+    <div class="btc-page"><div class="btc-wrap">
+      <div class="btc-top">
+        <div class="btc-box"><div class="lbl">💱 Rate Tukar Tetap</div><div class="big">Rp 10.000</div><div class="sub">= <b>1 BTC</b></div><div class="rate-badge">₿ 1 BTC = <b>Rp 10.000</b></div></div>
+        <div class="btc-box wallet"><div class="lbl">₿ Wallet Bitcoin Anda</div><div class="big" id="btcBalance">0 BTC</div><div class="sub">≈ <b id="btcValueIdr">Rp 0</b></div><div class="sub" style="margin-top:8px;font-size:10px">Dari IDR: <b id="btcFromIdr" style="color:var(--y)">Rp 0</b></div></div>
+      </div>
+      <div class="btc-convert">
+        <div class="ccard buy"><h3>₿ Beli Bitcoin</h3><div class="desc">Tukar saldo IDR → BTC</div><div class="cfld"><label>Saldo IDR ditukar</label><div class="ciw"><input type="number" id="buyIdr" placeholder="0" oninput="previewBuy()"><span class="u">IDR</span></div><div class="cpct"><button onclick="setBuyPct(25)">25%</button><button onclick="setBuyPct(50)">50%</button><button onclick="setBuyPct(75)">75%</button><button onclick="setBuyPct(100)">MAX</button></div></div><div class="cpreview"><div class="row"><span>Rate</span><b>Rp 10.000 / BTC</b></div><div class="row"><span>IDR setelah</span><b id="buyIdrAfter">Rp 0</b></div><div class="row result"><span>BTC Diterima</span><b id="buyBtcGet">0 BTC</b></div></div><button class="cbtn" onclick="execBuy()">₿ TUKAR KE BITCOIN</button></div>
+        <div class="ccard sell"><h3>💵 Jual Bitcoin</h3><div class="desc">Tukar BTC → saldo IDR</div><div class="cfld"><label>BTC dijual</label><div class="ciw"><input type="number" id="sellBtc" placeholder="0" step="0.0001" oninput="previewSell()"><span class="u">BTC</span></div><div class="cpct"><button onclick="setSellPct(25)">25%</button><button onclick="setSellPct(50)">50%</button><button onclick="setSellPct(75)">75%</button><button onclick="setSellPct(100)">MAX</button></div></div><div class="cpreview"><div class="row"><span>Rate</span><b>Rp 10.000 / BTC</b></div><div class="row"><span>BTC setelah</span><b id="sellBtcAfter">0 BTC</b></div><div class="row result"><span>IDR Diterima</span><b id="sellIdrGet">Rp 0</b></div></div><button class="cbtn" onclick="execSell()">💵 TUKAR KE IDR</button></div>
+      </div>
+      <div class="btc-hist"><div class="hdr"><h3>📋 Riwayat Konversi</h3><span class="cnt" id="btcHistCount">0</span></div><div class="btc-hist-list" id="btcHistList"><div class="hempty">Belum ada transaksi</div></div></div>
+    </div></div>
+  </div>
+
+  <div class="page" id="pageFriends">
+    <div class="friend-search">
+      <input type="text" id="searchFriendInput" placeholder="Cari ID atau Nama Teman...">
+      <button onclick="searchFriend()">Cari</button>
+    </div>
+    <div class="friend-list" id="friendList">
+      <div class="act-empty">Belum ada teman. Cari temanmu di atas!</div>
+    </div>
+  </div>
+
+  <div class="page" id="pageRank">
+    <div class="leaderboard-container">
+      <div class="lb-header">
+        <h2>🏆 Papan Peringkat</h2>
+        <p>Top 10 User Terkaya</p>
+      </div>
+      <div class="lb-list" id="lbListUser"></div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="viewAdmin">
+  <div class="admin-main">
+    <div class="admin-left">
+      <div class="stats">
+        <div class="sc"><div class="lbl">Total User</div><div class="val b" id="sTotalUser">0</div><div class="sub">user biasa</div><div class="icon">👥</div></div>
+        <div class="sc"><div class="lbl">Total Saldo IDR</div><div class="val g" id="sTotalSaldo">Rp 0</div><div class="sub">Semua user</div><div class="icon">💰</div></div>
+        <div class="sc"><div class="lbl">Total BTC</div><div class="val btc" id="sTotalBtc">0 BTC</div><div class="sub" id="sTotalBtcSub">Rp 0</div><div class="icon">₿</div></div>
+        <div class="sc"><div class="lbl">Total Trade</div><div class="val y" id="sTotalTrade">0</div><div class="sub">transaksi</div><div class="icon">🔄</div></div>
+      </div>
+      <div class="atabs">
+        <div class="atab on" id="atUsers" onclick="switchAdminTab('users')">👥 User</div>
+        <div class="atab btc" id="atBtc" onclick="switchAdminTab('bitcoin')">₿ Bitcoin</div>
+        <div class="atab" id="atMsg" onclick="switchAdminTab('msg')">💬 Hadiah</div>
+        <div class="atab" id="atHist" onclick="switchAdminTab('hist')">📋 Riwayat</div>
+      </div>
+      <div class="pnl" style="flex:1;min-height:0" id="atTabUsers">
+        <div class="pnl-hdr"><h3>👥 Daftar User</h3><span class="cnt" id="userCount">0</span></div>
+        <div class="user-search"><input type="text" id="searchUser" placeholder="🔍 Cari username..." oninput="renderAdminTable()"></div>
+        <div class="pnl-body"><table class="u-table"><thead><tr><th>User</th><th class="r">Saldo IDR</th><th class="r">BTC</th><th class="r">Lvl</th><th class="r">Trade</th><th class="r">Aksi</th></tr></thead><tbody id="adminTable"></tbody></table></div>
+      </div>
+      <div class="pnl" style="flex:1;min-height:0;display:none" id="atTabBitcoin">
+        <div class="pnl-hdr"><h3>₿ Pengaturan Bitcoin</h3><span class="cnt" style="color:var(--btc)">Rp 10.000/BTC</span></div>
+        <div class="pnl-body btc-admin">
+          <div class="btc-info"><div class="price">Rp 10.000 = 1 BTC</div><div class="sub">Konversi 2 arah</div></div>
+          <div class="btc-section"><h4>₿ Top-Up BTC Semua User</h4><div class="btc-input-row"><input type="number" id="btcTopupAmount" value="1" step="0.1"><button onclick="adminTopupAllBtc()">Top-Up</button></div><div class="btc-quick"><button onclick="document.getElementById('btcTopupAmount').value='0.1'">0.1</button><button onclick="document.getElementById('btcTopupAmount').value='1'">1</button><button onclick="document.getElementById('btcTopupAmount').value='10'">10</button><button onclick="document.getElementById('btcTopupAmount').value='100'">100</button></div><div class="btc-actions"><button class="btc-action-btn reset" onclick="adminResetAllBtc()">🔄 Reset BTC Semua</button><button class="btc-action-btn danger" onclick="adminRemoveAllBtc()">⚠️ Hapus BTC Semua</button></div></div>
+          <div class="btc-section"><h4>👥 Kelola BTC per User</h4><div style="margin-bottom:8px"><input type="text" id="searchBtcUser" placeholder="🔍 Cari user..." oninput="renderBtcUserList()" style="width:100%;background:#0f1419;border:1px solid var(--bd);border-radius:5px;padding:8px 12px;color:#d1d4dc;font-size:11px;outline:none;font-family:'Courier New',monospace"></div><div class="btc-user-list" id="btcUserList"></div></div>
+        </div>
+      </div>
+      <div class="pnl" style="flex:1;min-height:0;display:none" id="atTabMsg">
+        <div class="pnl-hdr"><h3>💬 Kirim Pesan & Hadiah</h3></div>
+        <div class="pnl-body" style="padding:14px; overflow-y:auto;">
+          
+          <!-- TOMBOL LIHAT INBOX DITAMBAHKAN DI SINI -->
+          <div class="fld">
+            <label>Username Penerima</label>
+            <div style="display:flex; gap:6px;">
+              <input type="text" id="msgTarget" placeholder="Contoh: budi" style="flex:1;padding:10px;background:var(--p2);border:1px solid var(--bd);color:#fff;border-radius:5px;">
+              <button onclick="viewUserInbox()" style="background:var(--b);color:#fff;border:none;padding:0 15px;border-radius:5px;font-weight:bold;cursor:pointer;font-size:11px;">Lihat Inbox</button>
+            </div>
+          </div>
+
+          <div class="fld"><label>Pesan</label><input type="text" id="msgText" placeholder="Tulis pesan..." style="width:100%;padding:10px;background:var(--p2);border:1px solid var(--bd);color:#fff;border-radius:5px;margin-bottom:10px"></div>
+          <div class="fld"><label>Hadiah Saldo (IDR)</label><input type="number" id="msgRewardIdr" value="0" placeholder="0 = tidak ada" style="width:100%;padding:10px;background:var(--p2);border:1px solid var(--bd);color:#fff;border-radius:5px;margin-bottom:10px"></div>
+          
+          <div class="fld" style="margin-bottom:10px">
+            <label>Buka/Unlock Logo (Warna Avatar)</label>
+            <select id="msgRewardLogo" style="width:100%;padding:10px;background:var(--p2);border:1px solid var(--bd);color:#fff;border-radius:5px">
+              <option value="none">Tidak ada</option>
+              <option value="badge-blue">User Biasa (Biru Neon)</option>
+              <option value="badge-gold">Pro (Emas)</option>
+              <option value="badge-master">Master (Merah Keemasan)</option>
+              <option value="badge-exec">Eksekutif (Hitam Keemasan)</option>
+            </select>
+          </div>
+          
+          <div class="fld" style="margin-bottom:10px">
+            <label>Beri Penghargaan (Badge di Nama)</label>
+            <select id="msgAward" style="width:100%;padding:10px;background:var(--p2);border:1px solid var(--bd);color:#fff;border-radius:5px">
+              <option value="none">Tidak ada</option>
+              <option value="eksekutif">Eksekutif (Hitam Keemasan)</option>
+              <option value="pro">Pro (Emas)</option>
+              <option value="master">Master (Merah Keemasan)</option>
+              <option value="user">User Biasa (Biru Neon)</option>
+            </select>
+          </div>
+
+          <div class="btc-check" style="margin-bottom:15px">
+            <input type="checkbox" id="msgOnce" checked>
+            <span style="color:var(--g)">Hanya bisa diklaim 1x (Hapus dari inbox setelah diklaim)</span>
+          </div>
+          <button class="eb buy" style="background:linear-gradient(135deg,#f7931a,#ff9800)" onclick="adminSendGift()">KIRIM PESAN & HADIAH</button>
+          
+          <div class="btc-section" style="margin-top:15px">
+            <h4>Inbox User (Hapus Jika Menumpuk)</h4>
+            <div class="admin-msg-list" id="adminMsgList">
+              <div class="act-empty">Klik "Lihat Inbox" di atas</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pnl" style="flex:1;min-height:0;display:none" id="atTabHist">
+        <div class="pnl-hdr"><h3>📋 Riwayat Transaksi User</h3><span class="cnt" id="histCount">0</span></div>
+        <div class="pnl-body act-log" id="adminHistoryList">
+          <div class="act-empty">Belum ada riwayat</div>
+        </div>
+      </div>
+    </div>
+    <div class="admin-right">
+      <div class="pnl"><div class="pnl-hdr"><h3>🏆 Peringkat</h3><span class="cnt" style="color:var(--g)">Top 5</span></div><div class="pnl-body" id="topUsers"></div></div>
+      <div class="pnl" style="flex:1;min-height:0"><div class="pnl-hdr"><h3>₿ Top BTC</h3><span class="cnt" style="color:var(--btc)">Hodler</span></div><div class="pnl-body" id="topBtcUsers"></div></div>
+      <div class="pnl"><div class="pnl-hdr"><h3>📋 Log Admin</h3><span class="cnt" id="logCount">0</span></div><div class="pnl-body act-log" id="actLog"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="editModal" onclick="if(event.target===this)closeModal()">
+  <div class="mbox"><h3 id="mTitle">Edit</h3><div class="sub" id="mSub"></div><div class="fld"><label>Jumlah</label><input type="number" id="mAmount" value="500000"></div><div class="quick" id="mQuick"></div><div class="mactions"><button class="cancel" onclick="closeModal()">Batal</button><button class="confirm" id="mConfirm" onclick="confirmEdit()">Konfirmasi</button></div></div>
+</div>
+
+<div class="modal" id="profileModal" onclick="if(event.target===this)closeProfile()">
+  <div class="profile-card">
+    <div class="profile-avatar" id="profAv" onclick="document.getElementById('fileUpload').click()" title="Klik untuk ganti foto">U</div>
+    <input type="file" id="fileUpload" accept="image/*" style="display:none" onchange="uploadProfilePic(event)">
+    
+    <div class="avatar-options" id="avatarOptions" style="display:none;">
+      <!-- Pilihan Warna Avatar akan dirender ke sini -->
+    </div>
+
+    <div class="btn-upload" onclick="document.getElementById('fileUpload').click()">📸 Ganti Foto Profil</div>
+    
+    <div class="profile-name" id="profName">
+      Username <span id="profAward" class="award-badge" style="display:none;"></span>
+    </div>
+    <div class="profile-id" id="profId">ID: #000000</div>
+    <div class="profile-level" id="profLevel">Level 1</div>
+    <div class="exp-bar-container"><div class="exp-bar" id="profExpBar"></div></div>
+    <div class="exp-text" id="profExpText">0 / 100 EXP</div>
+    <button class="btn-transfer" onclick="openTransfer()">💸 Kirim Saldo ke Teman</button>
+    <button class="cancel" style="margin-top:8px;width:100%;padding:10px;border:none;border-radius:5px;background:transparent;color:var(--dim);cursor:pointer" onclick="closeProfile()">Tutup</button>
+  </div>
+</div>
+
+<div class="modal" id="transferModal" onclick="if(event.target===this)closeTransfer()">
+  <div class="mbox">
+    <h3>💸 Kirim Saldo</h3><div class="sub" id="transferSub">Penerima: -</div>
+    <div class="fld"><label>Jumlah IDR</label><input type="number" id="transferAmount" placeholder="Masukkan nominal" value="10000"></div>
+    <div class="mactions"><button class="cancel" onclick="closeTransfer()">Batal</button><button class="confirm" onclick="doTransfer()">Kirim</button></div>
+  </div>
+</div>
+
+<div class="modal" id="inboxModal" onclick="if(event.target===this)closeInbox()">
+  <div class="mbox" style="width:450px">
+    <h3>💬 Kotak Masuk</h3><div class="sub">Pesan & Hadiah dari Admin</div>
+    <div class="msg-list" id="msgList"></div>
+    <div class="mactions"><button class="cancel" onclick="closeInbox()">Tutup</button></div>
+  </div>
+</div>
+
+<div class="sb">
+  <div class="i"><b>FASHFAHIS MARKET</b> — Firebase</div>
+  <div class="i">Tick: <b>25</b></div>
+  <div class="i">Lot: <b>100</b></div>
+  <div class="i">₿ Rate: <b style="color:#f7931a">Rp 10.000 = 1 BTC</b></div>
+  <div class="i" style="margin-left:auto">₿ <b style="color:#f7931a" id="btcHeaderBal">0</b> BTC</div>
+</div>
+
+<div class="ts" id="ts2"><div class="t" id="tst">Info</div><div class="m" id="tsm"></div></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBcQayJtDg_yxCfA0Joc2ZmvavnV_M5qnI",
+  authDomain: "fash-market.firebaseapp.com",
+  databaseURL: "https://fash-market-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "fash-market",
+  storageBucket: "fash-market.firebasestorage.app",
+  messagingSenderId: "855431929318",
+  appId: "1:855431929318:web:007be1da7e10098d634a27",
+  measurementId: "G-0C9SNYPXPF"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const storage = firebase.storage();
+const usersRef = db.ref('users');
+const historyRef = db.ref('transactions');
+
+const ADMIN_USER='admin',ADMIN_PASS='admin',USER_CASH=500000,BTC_RATE=10000;
+const S=[
+{code:'BBCA',name:'Bank Central Asia',price:9850,prev:9825},
+{code:'BBRI',name:'Bank Rakyat Indonesia',price:5125,prev:5150},
+{code:'BMRI',name:'Bank Mandiri',price:6275,prev:6250},
+{code:'BBNI',name:'Bank Negara Indonesia',price:5475,prev:5500},
+{code:'TLKM',name:'Telkom Indonesia',price:3890,prev:3870},
+{code:'ASII',name:'Astra International',price:5125,prev:5100},
+{code:'UNVR',name:'Unilever Indonesia',price:2840,prev:2860},
+{code:'ICBP',name:'Indofood CBP',price:11250,prev:11200},
+{code:'GOTO',name:'GoTo Gojek Tokopedia',price:52,prev:53},
+{code:'ADRO',name:'Adaro Energy',price:2380,prev:2360},
+{code:'PTBA',name:'Bukit Asam',price:2870,prev:2890},
+{code:'ANTM',name:'Aneka Tambang',price:1685,prev:1670},
+// Saham Baru Ratusan Juta
+{code:'CBDK',name:'Saham Cepat Kaya (Risiko Tinggi)',price:2000000,prev:1950000},
+{code:'GOTO2',name:'Saham Teknologi Spekulatif',price:50,prev:52}
+];
+
+let users={},currentUser=null,currentRole=null;
+let sel=S[0],side='buy',cash=USER_CASH,pf={},btcBalance=0,btcHistory=[];
+let candles={},ind={candle:true,ma:true,volume:true},cd=3;
+let curPage='trader',curAdminTab='users',curView='user';
+let editMode=null,editTarget=null,adminLog=[];
+let allTransactions=[];
+let isOnline=false;
+let transferTarget=null; 
+let myInbox=[]; 
+let currentMsgTarget = null;
+
+const fmt=n=>Number(n).toLocaleString('id-ID');
+const fmtBtc=n=>Number(n).toLocaleString('id-ID',{maximumFractionDigits:4});
+const fp=n=>n<100?Math.round(n).toString():Math.round(n).toLocaleString('id-ID');
+const chg=s=>((s.price-s.prev)/s.prev*100);
+const cc=v=>v>0?'up':v<0?'dn':'';
+const cs=s=>(chg(s)>=0?'+':'')+chg(s).toFixed(2)+'%';
+const ts=p=>p<200?1:p<500?2:p<2000?5:p<5000?10:25;
+const timeAgo=t=>{if(!t)return 'Belum login';const d=Date.now()-t,m=Math.floor(d/60000),h=Math.floor(d/3600000),day=Math.floor(d/86400000);if(m<1)return 'Baru saja';if(m<60)return m+'m lalu';if(h<24)return h+'j lalu';return day+'h lalu';};
+
+function getLevelInfo(exp) {
+  let level = 1, nextExp = 100, totalExp = exp;
+  while(totalExp >= nextExp) {
+    totalExp -= nextExp;
+    level++;
+    nextExp = level * 100; 
+  }
+  return { level, currentExp: totalExp, maxExp: nextExp };
+}
+
+function initFirebase(){
+  db.ref('.info/connected').on('value',snap=>{
+    isOnline=snap.val()===true;
+    document.getElementById('offlineBadge').style.display=isOnline?'none':'inline-block';
+  });
+
+  usersRef.on('value',snap=>{
+    users=snap.val()||{};
+    if(!users[ADMIN_USER]){
+      usersRef.child(ADMIN_USER).set({
+        password:ADMIN_PASS,role:'admin',cash:'INFINITY',portfolio:{},
+        btcBalance:0,btcHistory:[],exp:0,createdAt:Date.now(),lastLogin:0,totalTrades:0,
+        ownedLogos:['badge-exec'], activeLogo:'badge-exec', award:'eksekutif', photoUrl:null, inbox:[]
+      });
+    }
+    if(currentUser&&users[currentUser]){
+      const u=users[currentUser];
+      if(u.role!=='admin'){
+        cash=u.cash||0; pf=u.portfolio||{};
+        btcBalance=u.btcBalance||0; btcHistory=u.btcHistory||[];
+        myInbox = u.inbox || []; 
+        if(currentRole) { renderAll(); renderHeader(); checkUnread(); }
+      }
+    }
+    if(curView==='admin') renderAdminAll();
+  });
+
+  historyRef.on('value', snap => {
+    allTransactions = snap.val() || {};
+    if(curView==='admin' && curAdminTab==='hist') {
+      renderAdminHistory();
+    }
+  });
+}
+
+function logTransaction(username, type, amount, desc) {
+  const cleanUser = username.toLowerCase();
+  historyRef.push({ user: cleanUser, type: type, amount: amount, desc: desc, time: Date.now() });
+}
+
+function uploadProfilePic(evt) {
+  const file = evt.target.files[0];
+  if(!file) return;
+  toast('Mengunggah', 'Sedang mengunggah foto...', 0);
+  const storageRef = storage.ref('profiles/' + currentUser + '_' + Date.now());
+  storageRef.put(file).then(snapshot => {
+    return snapshot.ref.getDownloadURL();
+  }).then(url => {
+    updateUser(currentUser, { photoUrl: url });
+    toast('✅ Berhasil', 'Foto profil diperbarui!');
+  }).catch(err => {
+    toast('Gagal Upload', err.message, 1);
+  });
+}
+
+function saveUser(username,data){return usersRef.child(username).set(data);}
+function updateUser(username,data){return usersRef.child(username).update(data);}
+function saveCurrentUser(){
+  if(!currentUser||!users[currentUser])return;
+  const u=users[currentUser];
+  if(u.role==='admin'){
+    updateUser(currentUser,{cash:'INFINITY',portfolio:pf,btcBalance:btcBalance,btcHistory:btcHistory,lastLogin:Date.now()});
+  }else{
+    updateUser(currentUser,{cash:cash,portfolio:pf,btcBalance:btcBalance,btcHistory:btcHistory,lastLogin:Date.now()});
+  }
+}
+
+function switchAuth(t){
+  document.querySelectorAll('.ltab').forEach(x=>x.classList.remove('on'));
+  document.querySelector(`.ltab:nth-child(${t==='login'?1:2})`).classList.add('on');
+  document.getElementById('loginForm').style.display=t==='login'?'block':'none';
+  document.getElementById('registerForm').style.display=t==='register'?'block':'none';
+  hideMsg();
+}
+function showMsg(m,t='err'){const e=document.getElementById('loginMsg');e.textContent=m;e.className='lmsg on '+t;}
+function hideMsg(){document.getElementById('loginMsg').className='lmsg';}
+
+function doLogin(){
+  const u=document.getElementById('liUser').value.trim().toLowerCase();
+  const p=document.getElementById('liPass').value;
+  if(!u||!p){showMsg('Isi username & password');return;}
+  if(!isOnline){showMsg('Tidak ada koneksi Firebase.');return;}
+  const user=users[u];
+  if(!user){showMsg('Username tidak ditemukan');return;}
+  if(user.password!==p){showMsg('Password salah');return;}
+  showMsg('Login berhasil!','ok');
+  setTimeout(()=>loginAs(u),400);
+}
+function doRegister(){
+  const u=document.getElementById('rgUser').value.trim().toLowerCase();
+  const p=document.getElementById('rgPass').value;
+  const p2=document.getElementById('rgPass2').value;
+  if(u.length<3){showMsg('Username min 3');return;}
+  if(!/^[a-z0-9_]+$/.test(u)){showMsg('Hanya huruf kecil/angka/_');return;}
+  if(u===ADMIN_USER){showMsg('Username tidak boleh admin');return;}
+  if(p.length<4){showMsg('Password min 4');return;}
+  if(p!==p2){showMsg('Konfirmasi tidak cocok');return;}
+  if(users[u]){showMsg('Username sudah dipakai');return;}
+  if(!isOnline){showMsg('Tidak ada koneksi Firebase');return;}
+  
+  let newId;
+  let isDuplicate = true;
+  while(isDuplicate) {
+    newId = Math.floor(100000 + Math.random() * 900000); 
+    isDuplicate = Object.values(users).some(user => user.uid === newId);
+  }
+
+  const data={password:p,role:'user',cash:USER_CASH,portfolio:{},btcBalance:0,btcHistory:[],exp:0,uid:newId,createdAt:Date.now(),lastLogin:0,totalTrades:0,
+    ownedLogos:['badge-blue'], activeLogo:'badge-blue', award:'user', photoUrl:null, inbox:[]
+  };
+  saveUser(u,data).then(()=>{
+    showMsg('Daftar berhasil! Saldo Rp 500.000','ok');
+    setTimeout(()=>{
+      document.getElementById('liUser').value=u;
+      document.getElementById('liPass').value='';
+      switchAuth('login');
+      ['rgUser','rgPass','rgPass2'].forEach(id=>document.getElementById(id).value='');
+    },800);
+  }).catch(err=>{
+    showMsg('Gagal daftar: '+err.message);
+  });
+}
+function loginAs(u){
+  currentUser=u;
+  const user=users[u];
+  currentRole=user.role;
+  cash=user.role==='admin'?Infinity:(user.cash||0);
+  pf=user.portfolio||{};
+  btcBalance=user.btcBalance||0;
+  btcHistory=user.btcHistory||[];
+  myInbox = user.inbox || [];
+  updateUser(u,{lastLogin:Date.now()});
+  document.getElementById('loginScreen').classList.add('hide');
+  
+  renderHeader();
+  
+  document.getElementById('adminBtn').style.display=user.role==='admin'?'flex':'none';
+  document.getElementById('msgBtn').style.display=user.role!=='admin'?'flex':'none'; 
+  
+  curView='user';
+  document.getElementById('viewUser').classList.add('on');
+  document.getElementById('viewAdmin').classList.remove('on');
+  document.getElementById('topBarUser').style.display='flex';
+  document.getElementById('topBarAdmin').style.display='none';
+  renderAll(); checkUnread(); renderLeaderboardUser();
+  try{localStorage.setItem('ffm_cur_v5',u);}catch(e){}
+  toast('👋 Selamat datang',`Halo ${u}!`);
+}
+
+function renderHeader() {
+  if(!currentUser || !users[currentUser]) return;
+  const u = users[currentUser];
+  const lvlInfo = getLevelInfo(u.exp || 0);
+  
+  document.getElementById('userUn').textContent=currentUser;
+  
+  const avEl = document.getElementById('userAv');
+  if(u.photoUrl) {
+    avEl.style.backgroundImage = `url('${u.photoUrl}')`;
+    avEl.textContent = '';
+  } else {
+    avEl.style.backgroundImage = 'none';
+    avEl.textContent = currentUser.charAt(0).toUpperCase();
+  }
+  
+  let avClass = 'av ';
+  if(u.role==='admin') avClass += 'adm';
+  else if(u.activeLogo) avClass += u.activeLogo;
+  avEl.className = avClass;
+  
+  let lvlBadge = avEl.querySelector('.lvl-badge');
+  if(!lvlBadge) {
+    lvlBadge = document.createElement('div');
+    lvlBadge.className = 'lvl-badge';
+    avEl.appendChild(lvlBadge);
+  }
+  lvlBadge.textContent = lvlInfo.level;
+
+  document.getElementById('userRole').textContent=u.role.toUpperCase();
+  document.getElementById('userRole').className='rl '+(u.role==='admin'?'adm':'');
+}
+
+function doLogout(){
+  if(!confirm('Yakin logout?'))return;
+  saveCurrentUser();
+  currentUser=null;currentRole=null;
+  try{localStorage.removeItem('ffm_cur_v5');}catch(e){}
+  document.getElementById('loginScreen').classList.remove('hide');
+  document.getElementById('liUser').value='';
+  document.getElementById('liPass').value='';
+  hideMsg();
+}
+
+function openProfile() {
+  if(!currentUser) return;
+  const u = users[currentUser];
+  const lvlInfo = getLevelInfo(u.exp || 0);
+  
+  const profAv = document.getElementById('profAv');
+  if(u.photoUrl) {
+    profAv.style.backgroundImage = `url('${u.photoUrl}')`;
+    profAv.textContent = '';
+  } else {
+    profAv.style.backgroundImage = 'none';
+    profAv.textContent = currentUser.charAt(0).toUpperCase();
+  }
+  
+  let avClass = 'profile-avatar ';
+  if(u.role==='admin') avClass += 'adm';
+  else if(u.activeLogo) avClass += u.activeLogo;
+  profAv.className = avClass;
+  
+  document.getElementById('profName').innerHTML = `${currentUser} <span id="profAward" class="award-badge award-${u.award || 'user'}" style="${u.award ? '' : 'display:none;'}">${u.award || ''}</span>`;
+  
+  // Render Pilihan Avatar
+  const optEl = document.getElementById('avatarOptions');
+  const owned = u.ownedLogos || [];
+  if(owned.length >= 3) {
+    optEl.style.display = 'flex';
+    const logoList = [
+      {id:'badge-blue', name:'Biru'},
+      {id:'badge-gold', name:'Emas'},
+      {id:'badge-master', name:'Merah'},
+      {id:'badge-exec', name:'Hitam'}
+    ];
+    
+    optEl.innerHTML = owned.map(lg => {
+      let clName = lg;
+      let active = (u.activeLogo === lg) ? 'active' : '';
+      return `<div class="av-opt ${clName} ${active}" onclick="setActiveLogo('${lg}')" title="Gunakan Warna">FSHM</div>`;
+    }).join('');
+  } else {
+    optEl.style.display = 'none';
+  }
+
+  document.getElementById('profId').textContent = `ID: #${u.uid || '------'}`; 
+  document.getElementById('profLevel').textContent = `Level ${lvlInfo.level}`;
+  
+  const pct = Math.min(100, (lvlInfo.currentExp / lvlInfo.maxExp) * 100);
+  document.getElementById('profExpBar').style.width = pct + '%';
+  document.getElementById('profExpText').textContent = `${lvlInfo.currentExp} / ${lvlInfo.maxExp} EXP`;
+  
+  document.getElementById('profileModal').classList.add('on');
+}
+function closeProfile() { document.getElementById('profileModal').classList.remove('on'); }
+
+function setActiveLogo(logo) {
+  if(!currentUser) return;
+  updateUser(currentUser, { activeLogo: logo });
+  toast('✅ Berhasil', 'Warna avatar diganti!');
+  openProfile(); // Re-render
+}
+
+function openTransfer() {
+  closeProfile();
+  switchPage('friends');
+  toast('Info', 'Cari nama teman di tab Teman, lalu klik "Kirim"', 0);
+}
+function doTransfer() {
+  if(!transferTarget) return;
+  const amount = parseFloat(document.getElementById('transferAmount').value);
+  if(!amount || amount < 1000) { toast('Gagal', 'Minimal transfer Rp 1.000', 1); return; }
+  if(cash < amount) { toast('Gagal', 'Saldo tidak cukup', 1); return; }
+  
+  cash -= amount;
+  saveCurrentUser();
+  const targetCash = users[transferTarget].cash || 0;
+  updateUser(transferTarget, { cash: targetCash + amount });
+  
+  logTransaction(currentUser, 'out', amount, `Transfer saldo ke ${transferTarget}`);
+  logTransaction(transferTarget, 'in', amount, `Terima transfer dari ${currentUser}`);
+
+  toast('✅ Berhasil', `Rp ${fmt(amount)} terkirim ke ${transferTarget}`);
+  closeTransfer();
+}
+function searchFriend() {
+  const q = document.getElementById('searchFriendInput').value.trim().toLowerCase();
+  if(!q) return;
+  
+  const listEl = document.getElementById('friendList');
+  listEl.innerHTML = '';
+  
+  const found = Object.keys(users).filter(u => 
+    u.includes(q) || (users[u].uid && users[u].uid.toString() === q)
+  );
+  
+  if(found.length === 0) {
+    listEl.innerHTML = '<div class="act-empty">Teman tidak ditemukan</div>';
+    return;
+  }
+  
+  found.forEach(u => {
+    if(u === currentUser) return;
+    const lvlInfo = getLevelInfo(users[u].exp || 0);
+    const div = document.createElement('div');
+    div.className = 'friend-item';
+    
+    let avStyle = '';
+    if(users[u].photoUrl) avStyle = `background-image:url('${users[u].photoUrl}');background-size:cover;background-position:center`;
+    
+    div.innerHTML = `
+      <div class="friend-info">
+        <div class="friend-av ${users[u].activeLogo || ''}" style="${avStyle}">${users[u].photoUrl ? '' : u.charAt(0).toUpperCase()}</div>
+        <div>
+          <div style="font-weight:bold;display:flex;align-items:center;gap:4px;">${u} <span class="award-badge award-${users[u].award || 'user'}" style="${users[u].award ? '' : 'display:none;'}">${users[u].award || ''}</span></div>
+          <div style="font-size:9px;color:var(--dim)">ID: #${users[u].uid || '-'} • Lv ${lvlInfo.level}</div>
+        </div>
+      </div>
+      <button onclick="setupTransfer('${u}')" style="background:var(--g);color:#fff;border:none;padding:6px 10px;border-radius:4px;font-size:10px;cursor:pointer">Kirim</button>
+    `;
+    listEl.appendChild(div);
+  });
+}
+function setupTransfer(targetUser) {
+  transferTarget = targetUser;
+  document.getElementById('transferSub').textContent = `Penerima: ${targetUser}`;
+  document.getElementById('transferAmount').value = '10000';
+  document.getElementById('transferModal').classList.add('on');
+}
+function closeTransfer() { document.getElementById('transferModal').classList.remove('on'); transferTarget = null; }
+
+function checkUnread() {
+  const unread = myInbox.filter(m => !m.read).length;
+  const badge = document.getElementById('msgBadge');
+  if(unread > 0) {
+    badge.textContent = unread;
+    badge.style.display = 'block';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+function openInbox() {
+  const el = document.getElementById('msgList');
+  if(myInbox.length === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:20px;color:var(--dim)">Belum ada pesan.</div>';
+  } else {
+    el.innerHTML = myInbox.map((m, i) => {
+      let rewardHtml = '';
+      if(m.rewardIdr > 0 || m.rewardLogo || m.rewardAward) {
+        let logoName = "";
+        if(m.rewardLogo === 'badge-blue') logoName = "User Biasa (Biru Neon)";
+        if(m.rewardLogo === 'badge-gold') logoName = "Pro (Emas)";
+        if(m.rewardLogo === 'badge-master') logoName = "Master (Merah Keemasan)";
+        if(m.rewardLogo === 'badge-exec') logoName = "Eksekutif (Hitam Keemasan)";
+        
+        let awardName = m.rewardAward ? m.rewardAward.toUpperCase() : "";
+
+        rewardHtml = `<div class="msg-reward">
+          <div>
+            ${m.rewardIdr > 0 ? `💰 Rp ${fmt(m.rewardIdr)}<br>` : ''}
+            ${m.rewardLogo ? `🎖️ Unlock Avatar ${logoName}<br>` : ''}
+            ${m.rewardAward ? `🎗️ Penghargaan: ${awardName}` : ''}
+          </div>
+          <button class="${m.claimed ? 'btn-claimed' : 'btn-claim'}" onclick="claimReward(${i})" ${m.claimed?'disabled':''}>${m.claimed ? 'Sudah Diklaim' : 'KLAIM'}</button>
+        </div>`;
+      }
+      return `<div class="msg-item ${m.read?'read':''}">
+        <div class="msg-hdr"><span>Dari: ADMIN</span><span>${new Date(m.time).toLocaleString('id-ID')}</span></div>
+        <div class="msg-body">${m.text}</div>
+        ${rewardHtml}
+      </div>`;
+    }).join('');
+  }
+  document.getElementById('inboxModal').classList.add('on');
+  
+  if(myInbox.some(m => !m.read)) {
+    myInbox.forEach(m => m.read = true);
+    updateUser(currentUser, { inbox: myInbox });
+  }
+}
+function closeInbox() { document.getElementById('inboxModal').classList.remove('on'); checkUnread(); }
+
+function claimReward(idx) {
+  const m = myInbox[idx];
+  if(m.claimed) return;
+  
+  const updates = {};
+  
+  if(m.rewardIdr > 0) {
+    cash += m.rewardIdr;
+    updates.cash = cash;
+    logTransaction(currentUser, 'in', m.rewardIdr, `Klaim hadiah dari admin`);
+  }
+  
+  // Menggabungkan Logo
+  if(m.rewardLogo) {
+    const owned = users[currentUser].ownedLogos || [];
+    if(!owned.includes(m.rewardLogo)) {
+      owned.push(m.rewardLogo);
+      updates.ownedLogos = owned;
+      if(!users[currentUser].activeLogo) updates.activeLogo = m.rewardLogo; 
+    }
+  }
+  
+  // Menggabungkan Award
+  if(m.rewardAward) {
+    updates.award = m.rewardAward;
+  }
+  
+  m.claimed = true;
+  
+  if(m.once) myInbox.splice(idx, 1);
+  
+  updates.inbox = myInbox;
+  updateUser(currentUser, updates);
+  
+  if(updates.cash) saveCurrentUser();
+  
+  toast('✅ Hadiah Diklaim', 'Hadiah berhasil ditambahkan ke akunmu!');
+  openInbox(); 
+}
+
+// Admin Melihat Pesan User
+function viewUserInbox() {
+  const target = document.getElementById('msgTarget').value.trim().toLowerCase();
+  if(!target || !users[target]) { toast('Gagal', 'User tidak ditemukan', 1); return; }
+  
+  currentMsgTarget = target;
+  const userInbox = users[target].inbox || [];
+  const el = document.getElementById('adminMsgList');
+  
+  if(userInbox.length === 0) {
+    el.innerHTML = '<div class="act-empty">Inbox kosong</div>';
+  } else {
+    el.innerHTML = userInbox.map((m, i) => {
+      return `<div class="admin-msg-item">
+        <div class="txt">${m.text || 'Hadiah'}</div>
+        <button onclick="adminDeleteMsg(${i})" style="background:var(--r);color:#fff;border:none;padding:3px 6px;border-radius:3px;font-size:9px;cursor:pointer">🗑️</button>
+      </div>`;
+    }).join('');
+  }
+}
+
+// Admin Menghapus Pesan User
+function adminDeleteMsg(idx) {
+  if(!currentMsgTarget) return;
+  const targetInbox = users[currentMsgTarget].inbox || [];
+  
+  targetInbox.splice(idx, 1);
+  updateUser(currentMsgTarget, { inbox: targetInbox }).then(() => {
+    toast('✅ Terhapus', 'Pesan berhasil dihapus dari inbox user');
+    viewUserInbox(); // Refresh
+  });
+}
+
+function adminSendGift() {
+  const target = document.getElementById('msgTarget').value.trim().toLowerCase();
+  const text = document.getElementById('msgText').value;
+  const idr = parseFloat(document.getElementById('msgRewardIdr').value) || 0;
+  const logo = document.getElementById('msgRewardLogo').value !== 'none' ? document.getElementById('msgRewardLogo').value : null;
+  const award = document.getElementById('msgAward').value !== 'none' ? document.getElementById('msgAward').value : null;
+  const once = document.getElementById('msgOnce').checked; 
+  
+  if(!target || !users[target]) { toast('Gagal', 'User tidak ditemukan', 1); return; }
+  if(!text && idr <= 0 && !logo && !award) { toast('Gagal', 'Pesan atau hadiah kosong', 1); return; }
+  
+  const targetInbox = users[target].inbox || [];
+  targetInbox.unshift({
+    from: 'admin',
+    text: text || 'Hadiah Spesial',
+    rewardIdr: idr,
+    rewardLogo: logo,
+    rewardAward: award,
+    once: once, 
+    time: Date.now(),
+    read: false,
+    claimed: false
+  });
+  
+  updateUser(target, { inbox: targetInbox }).then(() => {
+    toast('✅ Terkirim', 'Pesan & hadiah berhasil dikirim ke ' + target);
+    document.getElementById('msgText').value = '';
+    document.getElementById('msgRewardIdr').value = '0';
+    document.getElementById('msgRewardLogo').value = 'none';
+    document.getElementById('msgAward').value = 'none';
+    logTransaction(target, 'in', idr, `Menerima hadiah dari admin`);
+    if (currentMsgTarget === target) viewUserInbox();
+  });
+}
+
+function revokeUserAssets(username) {
+  if(!confirm(`Cabut Logo & Penghargaan dari user "${username}"?`)) return;
+  
+  const updates = {
+    activeLogo: 'badge-blue', 
+    award: 'user',
+    ownedLogos: ['badge-blue']
+  };
+  
+  updateUser(username, updates).then(() => {
+    toast('✅ Dicabut', `Logo & Penghargaan ${username} telah di-reset.`);
+    renderAdminAll();
+  });
+}
+
+function renderLeaderboardUser() {
+  const el = document.getElementById('lbListUser');
+  if(!el) return;
+  
+  const keys = Object.keys(users).filter(u => users[u].role !== 'admin');
+  keys.sort((a,b) => (users[b].cash || 0) - (users[a].cash || 0));
+  const top = keys.slice(0, 10);
+  
+  if(top.length === 0) {
+    el.innerHTML = '<div class="act-empty">Belum ada user</div>';
+    return;
+  }
+  
+  el.innerHTML = top.map((u, i) => {
+    const lvlInfo = getLevelInfo(users[u].exp || 0);
+    let avStyle = '';
+    if(users[u].photoUrl) avStyle = `background-image:url('${users[u].photoUrl}');background-size:cover;background-position:center`;
+    let avClass = 'lb-av';
+    if(users[u].activeLogo) avClass += ' ' + users[u].activeLogo;
+    
+    let topClass = '';
+    if(i===0) topClass = 'top1';
+    else if(i===1) topClass = 'top2';
+    else if(i===2) topClass = 'top3';
+    
+    return `<div class="lb-item ${topClass}">
+      <div class="lb-rank">${i+1}</div>
+      <div class="${avClass}" style="${avStyle}">${users[u].photoUrl ? '' : u.charAt(0).toUpperCase()}</div>
+      <div class="lb-info">
+        <div class="lb-name">${u} <span class="award-badge award-${users[u].award || 'user'}" style="${users[u].award ? '' : 'display:none;'}">${users[u].award || ''}</span></div>
+        <div class="lb-lvl">Level ${lvlInfo.level}</div>
+      </div>
+      <div class="lb-val">Rp ${fmt(users[u].cash || 0)}</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleAdmin(){
+  if(currentRole!=='admin'){toast('Akses','Hanya admin',1);return;}
+  if(curView==='admin'){
+    curView='user';
+    document.getElementById('viewAdmin').classList.remove('on');
+    document.getElementById('viewUser').classList.add('on');
+    document.getElementById('topBarUser').style.display='flex';
+    document.getElementById('topBarAdmin').style.display='none';
+  }else{
+    curView='admin';
+    document.getElementById('viewUser').classList.remove('on');
+    document.getElementById('viewAdmin').classList.add('on');
+    document.getElementById('topBarUser').style.display='none';
+    document.getElementById('topBarAdmin').style.display='flex';
+    renderAdminAll();
+  }
+}
+function switchPage(p){
+  curPage=p;
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('mtTrader').classList.toggle('on',p==='trader');
+  document.getElementById('mtBitcoin').classList.toggle('on',p==='bitcoin');
+  document.getElementById('mtFriends').classList.toggle('on',p==='friends');
+  document.getElementById('mtRank').classList.toggle('on',p==='rank');
+  document.getElementById('pageTrader').classList.toggle('on',p==='trader');
+  document.getElementById('pageBitcoin').classList.toggle('on',p==='bitcoin');
+  document.getElementById('pageFriends').classList.toggle('on',p==='friends');
+  document.getElementById('pageRank').classList.toggle('on',p==='rank');
+  
+  if(p==='bitcoin')renderBtc();
+  if(p==='rank')renderLeaderboardUser();
+}
+function switchAdminTab(tab){
+  curAdminTab=tab;
+  document.querySelectorAll('.atab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('atUsers').classList.toggle('on',tab==='users');
+  document.getElementById('atBtc').classList.toggle('on',tab==='bitcoin');
+  document.getElementById('atMsg').classList.toggle('on',tab==='msg');
+  document.getElementById('atHist').classList.toggle('on',tab==='hist');
+  document.getElementById('atTabUsers').style.display=tab==='users'?'flex':'none';
+  document.getElementById('atTabBitcoin').style.display=tab==='bitcoin'?'flex':'none';
+  document.getElementById('atTabMsg').style.display=tab==='msg'?'flex':'none';
+  document.getElementById('atTabHist').style.display=tab==='hist'?'flex':'none';
+  
+  if(tab==='bitcoin')renderBtcUserList();
+  if(tab==='hist')renderAdminHistory();
+}
+function renderAll(){rW();rOB();rPF();if(sel)draw();renderBtc();}
+function renderAdminAll(){renderStats();renderAdminTable();renderTopUsers();renderTopBtc();renderLog();renderBtcUserList();renderAdminHistory();}
+
+function addExp(amount) {
+  if(currentRole === 'admin') return;
+  const u = users[currentUser];
+  const oldExp = u.exp || 0;
+  const newExp = oldExp + amount;
+  
+  const oldLvl = getLevelInfo(oldExp).level;
+  const newLvl = getLevelInfo(newExp).level;
+  
+  if(newLvl > oldLvl) {
+    let reward = 0;
+    if(newLvl >= 25 && newLvl < 50) reward = 250000;
+    else if(newLvl >= 50 && newLvl < 75) reward = 500000;
+    else if(newLvl >= 75 && newLvl < 100) reward = 750000;
+    else if(newLvl >= 100) {
+       toast('🎉 LEVEL 100!', 'Kamu mencapai level maksimal!', 0);
+    }
+    if(reward > 0) {
+      cash += reward;
+      toast('🎉 LEVEL UP!', `Kamu naik ke Level ${newLvl}! Bonus: Rp ${fmt(reward)}`, 0);
+      logTransaction(currentUser, 'in', reward, `Bonus naik level ${newLvl}`);
+    } else {
+      toast('🎉 LEVEL UP!', `Kamu naik ke Level ${newLvl}!`, 0);
+    }
+  }
+  updateUser(currentUser, { exp: newExp });
+}
+
+function renderAdminHistory() {
+  const el = document.getElementById('adminHistoryList');
+  const cnt = document.getElementById('histCount');
+  if(!el) return;
+  
+  const keys = Object.keys(allTransactions).sort((a,b) => allTransactions[b].time - allTransactions[a].time); 
+  cnt.textContent = keys.length + ' Transaksi';
+  
+  if(keys.length === 0) {
+    el.innerHTML = '<div class="act-empty">Belum ada riwayat transaksi</div>';
+    return;
+  }
+  
+  el.innerHTML = keys.map(k => {
+    const t = allTransactions[k];
+    const time = new Date(t.time).toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' • ' + new Date(t.time).toLocaleDateString('id-ID');
+    const isPlus = t.type === 'in';
+    
+    return `<div class="act-item">
+      <span class="t" style="font-size:8px">${time}</span>
+      <span class="m">
+        <b>${t.user}</b><br>
+        <span style="font-size:9px;color:var(--dim)">${t.desc}</span>
+      </span>
+      <span class="m ${isPlus ? 'plus' : 'minus'}" style="text-align:right;font-family:'Courier New',monospace;font-size:11px">
+        ${isPlus ? '+' : '-'}Rp ${fmt(t.amount)}
+      </span>
+    </div>`;
+  }).join('');
+}
+
+function initC(){
+  S.forEach(s=>{
+    const a=[];let p=s.prev*0.99,drift=0;const vol=s.price*0.008;
+    for(let i=0;i<120;i++){
+      const o=p;drift=drift*0.9+(Math.random()-0.5)*vol*0.3;
+      let c=o+drift+(Math.random()-0.5)*vol*2;
+      c=Math.max(o-o*0.03,Math.min(o+o*0.03,c));
+      a.push({o,h:Math.max(o,c)+Math.random()*vol*0.5,l:Math.min(o,c)-Math.random()*vol*0.5,c,v:Math.floor(Math.random()*5e6)+5e5});p=c;
+    }
+    const l=a[a.length-1];l.c=s.price;l.h=Math.max(l.h,s.price);l.l=Math.min(l.l,s.price);
+    candles[s.code]=a;
+  });
+}
+function rW(){
+  document.getElementById('wl').innerHTML=S.map(s=>{
+    const c=chg(s);
+    return `<div class="wi ${s.code===sel.code?'on':''}" onclick="selS('${s.code}')"><div><div class="c">${s.code}</div><div class="nm">${s.name}</div></div><div class="r"><div class="p">${fp(s.price)}</div><div class="ch ${cc(c)}">${cs(s)}</div></div></div>`;
+  }).join('');
+}
+function draw(){
+  const cv=document.getElementById('ch'),par=cv.parentElement,rc=par.getBoundingClientRect(),dpr=devicePixelRatio||1;
+  if(rc.width<10||rc.height<10)return;
+  cv.width=rc.width*dpr;cv.height=rc.height*dpr;cv.style.width=rc.width+'px';cv.style.height=rc.height+'px';
+  const ctx=cv.getContext('2d');ctx.scale(dpr,dpr);
+  const W=rc.width,H=rc.height;ctx.clearRect(0,0,W,H);ctx.fillStyle='#131722';ctx.fillRect(0,0,W,H);
+  const data=candles[sel.code];if(!data)return;
+  const showV=ind.volume,pL=6,pR=54,pT=16,pB=showV?100:22;
+  const cW=W-pL-pR,cH=H-pT-pB,vH=showV?58:0;
+  const vis=data.slice(-80),n=vis.length;
+  const mx=Math.max(...vis.map(c=>c.h)),mn=Math.min(...vis.map(c=>c.l));
+  const rP=(mx-mn)||1,pad=rP*0.08,top=mx+pad,bot=mn-pad,rng=top-bot;
+  const xF=i=>pL+(i+0.5)*(cW/n),yF=p=>pT+((top-p)/rng)*cH;
+  ctx.strokeStyle='#1e222d';ctx.lineWidth=1;ctx.font='8px Courier New';ctx.fillStyle='#5c6270';
+  for(let i=0;i<=6;i++){const y=pT+(cH/6)*i;ctx.beginPath();ctx.moveTo(pL,y);ctx.lineTo(W-pR,y);ctx.stroke();ctx.fillText(fp(top-(rng/6)*i),W-pR+4,y+2);}
+  const cwd=Math.max(2,(cW/n)*0.7);
+  vis.forEach((c,i)=>{const x=xF(i),up=c.c>=c.o;ctx.strokeStyle=up?'#26a69a':'#ef5350';ctx.fillStyle=up?'#26a69a':'#ef5350';ctx.beginPath();ctx.moveTo(x,yF(c.h));ctx.lineTo(x,yF(c.l));ctx.stroke();const yO=yF(c.o),yC=yF(c.c),bT=Math.min(yO,yC),bH=Math.max(1,Math.abs(yC-yO));ctx.fillRect(x-cwd/2,bT,cwd,bH);});
+  if(ind.ma&&n>20){ctx.beginPath();ctx.strokeStyle='#ffb74d';ctx.lineWidth=1.5;let st=false;for(let i=0;i<n;i++){if(i<19)continue;let sum=0;for(let j=i-19;j<=i;j++)sum+=vis[j].c;const ma=sum/20,x=xF(i),y=yF(ma);if(!st){ctx.moveTo(x,y);st=true;}else ctx.lineTo(x,y);}ctx.stroke();}
+  if(showV){const vT=pT+cH+16,mV=Math.max(...vis.map(c=>c.v));vis.forEach((c,i)=>{const x=xF(i),vh=(c.v/mV)*vH,up=c.c>=c.o;ctx.fillStyle=up?'rgba(38,166,154,0.5)':'rgba(239,83,80,0.5)';ctx.fillRect(x-cwd/2,vT+vH-vh,cwd,vh);});}
+  const lp=vis[n-1].c,ly=yF(lp),up=chg(sel)>=0;
+  ctx.setLineDash([4,4]);ctx.strokeStyle=up?'#26a69a':'#ef5350';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pL,ly);ctx.lineTo(W-pR,ly);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle=up?'#26a69a':'#ef5350';ctx.fillRect(W-pR,ly-7,pR,14);ctx.fillStyle='#fff';ctx.font='bold 9px Courier New';ctx.fillText(fp(lp),W-pR+4,ly+3);
+  const l=vis[n-1];
+  document.getElementById('oV').textContent=fp(l.o);document.getElementById('hV').textContent=fp(l.h);document.getElementById('lV').textContent=fp(l.l);document.getElementById('cV').textContent=fp(l.c);document.getElementById('vV').textContent=(l.v/1000).toFixed(0)+'K';
+}
+function rOB(){
+  const p=sel.price,tk=ts(p),mq=2000;let h='';
+  for(let i=5;i>=1;i--){const q=Math.floor(Math.random()*600)+100,pc=(q/mq*100).toFixed(0);h+=`<div class="obr ask"><span class="ql"></span><span class="ap">${fp(p+i*tk)}</span><span class="q">${fmt(q)}</span><div class="d" style="width:${pc}%"></div></div>`;}
+  for(let i=1;i<=5;i++){const q=Math.floor(Math.random()*600)+100,pc=(q/mq*100).toFixed(0);h+=`<div class="obr bid"><span class="ql">${fmt(q)}</span><span class="bp">${fp(p-i*tk)}</span><span class="q"></span><div class="d" style="width:${pc}%"></div></div>`;}
+  document.getElementById('obR').innerHTML=h;document.getElementById('spr').innerHTML=`SPREAD <b>${tk*2}</b> (${(tk*2/p*100).toFixed(2)}%)`;
+}
+function rPF(){
+  const admin=currentRole==='admin';let eq=admin?0:cash,pl=0;const rows=[];
+  Object.keys(pf).forEach(c=>{const f=pf[c],s=S.find(x=>x.code===c);if(!s||f.qty===0)return;const val=f.qty*s.price,cost=f.qty*f.avgPrice,p=val-cost;eq+=val;pl+=p;rows.push(`<div class="pfr"><div class="c">${c}<small>${f.qty} lbr</small></div><div class="num">${fmt(Math.round(val))}</div><div class="num ${p>=0?'up':'dn'}">${p>=0?'+':''}${fmt(Math.round(p))}</div></div>`);});
+  document.getElementById('pb2').innerHTML=rows.length?rows.join(''):'<div class="pfe">Belum ada saham</div>';
+  document.getElementById('pe').textContent=admin?'∞ (Infinity)':'Rp '+fmt(Math.round(eq));document.getElementById('pe').style.color=admin?'#ffb74d':'#d1d4dc';
+  document.getElementById('pc').textContent=admin?'∞ (Unlimited)':'Rp '+fmt(Math.round(cash));document.getElementById('pc').style.color=admin?'#ffb74d':'#d1d4dc';
+  const pE=document.getElementById('pp');pE.textContent=(pl>=0?'+':'')+'Rp '+fmt(Math.round(pl))+' ('+(pl/1e6).toFixed(2)+'%)';pE.className='pn '+(pl>=0?'up':'dn');
+}
+function selS(c){sel=S.find(s=>s.code===c);document.getElementById('ip').value=Math.round(sel.price);updOI();document.getElementById('eb').textContent=(side==='buy'?'BELI ':'JUAL ')+sel.code;renderAll();}
+function setS(s){side=s;document.querySelectorAll('.ttabs button').forEach(b=>b.classList.remove('on'));document.querySelector(`.ttabs button.${s}`).classList.add('on');const b=document.getElementById('eb');b.className='eb '+s;b.textContent=(s==='buy'?'BELI ':'JUAL ')+sel.code;}
+function updOI(){
+  const p=parseFloat(document.getElementById('ip').value)||0;const q=parseInt(document.getElementById('iq').value)||0;
+  const sh=q*100,gr=p*sh,fp_=side==='buy'?0.0015:0.0025,fee=gr*fp_,tot=side==='buy'?gr+fee:gr-fee;
+  const payBtc = document.getElementById('payBtc').checked && side==='buy';
+  
+  document.getElementById('oiP').textContent='Rp '+fmt(p);
+  document.getElementById('oiS').textContent=fmt(sh);
+  document.getElementById('oiF').textContent='Rp '+fmt(Math.round(fee));
+  
+  if(payBtc) {
+    document.getElementById('oiT').innerHTML = `<span style="color:var(--btc)">${fmtBtc(tot/BTC_RATE)} BTC</span>`;
+  } else {
+    document.getElementById('oiT').textContent='Rp '+fmt(Math.round(tot));
+  }
+}
+document.getElementById('ip').addEventListener('input',updOI);document.getElementById('iq').addEventListener('input',updOI);
+function setP(pct){
+  const admin=currentRole==='admin';
+  if(side==='buy'){const p=parseFloat(document.getElementById('ip').value)||0;if(admin){document.getElementById('iq').value=Math.max(1,Math.floor(1000*(pct/100)));}else{const mx=Math.floor(cash/(p*1.0015));document.getElementById('iq').value=Math.max(1,Math.floor(mx/100*(pct/100)));}}
+  else{const f=pf[sel.code];if(!f){document.getElementById('iq').value=0;return;}document.getElementById('iq').value=Math.max(0,Math.floor(f.qty/100*(pct/100)));}
+  updOI();
+}
+function exec(){
+  if(!currentUser){toast('Error','Login dulu',1);return;}
+  const admin=currentRole==='admin';const p=parseFloat(document.getElementById('ip').value),q=parseInt(document.getElementById('iq').value);
+  if(!p||p<=0||!q||q<=0){toast('Ditolak','Invalid',1);return;}
+  const sh=q*100,gr=p*sh;
+  
+  if(side==='buy'){
+    const fee=gr*0.0015,tot=gr+fee;
+    const payBtc = document.getElementById('payBtc').checked;
+    
+    if(payBtc) {
+      // Bayar pakai BTC
+      const btcCost = tot/BTC_RATE;
+      if(!admin && btcBalance < btcCost) { toast('BTC Kurang', `Butuh ${fmtBtc(btcCost)} BTC`, 1); return; }
+      if(!admin) btcBalance -= btcCost;
+      logTransaction(currentUser, 'out', 0, `Beli saham ${sel.code} pakai ${fmtBtc(btcCost)} BTC`);
+    } else {
+      // Bayar pakai IDR
+      if(!admin && tot>cash){toast('Dana Kurang',`Butuh Rp ${fmt(Math.round(tot))}`,1);return;}
+      if(!admin) cash-=tot;
+      logTransaction(currentUser, 'out', Math.round(tot), `Beli saham ${sel.code} (IDR)`);
+    }
+    
+    if(!pf[sel.code])pf[sel.code]={qty:0,avgPrice:0};
+    const f=pf[sel.code];f.avgPrice=((f.avgPrice*f.qty)+gr)/(f.qty+sh);f.qty+=sh;
+    toast('✅ Beli Terisi',`${q} lot ${sel.code} @ ${fmt(p)}`);
+  }else{
+    const f=pf[sel.code];if(!f||f.qty<sh){toast('Saham Kurang',`Punya ${f?f.qty:0} lbr`,1);return;}
+    const fee=gr*0.0025,pr=gr-fee;if(!admin)cash+=pr;f.qty-=sh;if(f.qty===0)delete pf[sel.code];
+    toast('✅ Jual Terisi',`${q} lot ${sel.code} @ ${fmt(p)}`);
+    logTransaction(currentUser, 'in', Math.round(pr), `Jual saham ${sel.code}`);
+  }
+  
+  saveCurrentUser();
+  addExp(10);
+  const newTotalTrade = (users[currentUser].totalTrades || 0) + 1;
+  updateUser(currentUser, {totalTrades: newTotalTrade}).then(() => { renderAll(); });
+}
+function renderBtc(){
+  document.getElementById('btcBalance').textContent=fmtBtc(btcBalance)+' BTC';
+  document.getElementById('btcValueIdr').textContent='Rp '+fmt(Math.round(btcBalance*BTC_RATE));
+  document.getElementById('btcFromIdr').textContent='Rp '+fmt(Math.round(btcBalance*BTC_RATE));
+  document.getElementById('btcHeaderBal').textContent=fmtBtc(btcBalance);
+  const hist=btcHistory.slice(0,20);const histEl=document.getElementById('btcHistList');
+  document.getElementById('btcHistCount').textContent=btcHistory.length;
+  if(hist.length===0){histEl.innerHTML='<div class="hempty">Belum ada transaksi</div>';}
+  else{histEl.innerHTML=hist.map(h=>{const t=new Date(h.time).toLocaleString('id-ID',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});return `<div class="hrow"><span class="badge ${h.type}">${h.type==='buy'?'BELI':'JUAL'}</span><span class="t">${t}</span><span class="btc-amt">${h.type==='buy'?'+':'-'}${fmtBtc(h.btc)} ₿</span><span class="idr-amt ${h.type==='buy'?'out':'in'}">${h.type==='buy'?'-':'+'}Rp ${fmt(Math.round(h.idr))}</span></div>`;}).join('');}
+  previewBuy();previewSell();
+}
+function previewBuy(){const idr=parseFloat(document.getElementById('buyIdr').value)||0;const btc=idr/BTC_RATE;document.getElementById('buyBtcGet').textContent=fmtBtc(btc)+' BTC';const admin=currentRole==='admin';document.getElementById('buyIdrAfter').textContent=admin?'∞':('Rp '+fmt(Math.max(0,Math.round(cash-idr))));}
+function previewSell(){const btc=parseFloat(document.getElementById('sellBtc').value)||0;const idr=btc*BTC_RATE;document.getElementById('sellIdrGet').textContent='Rp '+fmt(Math.round(idr));document.getElementById('sellBtcAfter').textContent=fmtBtc(Math.max(0,btcBalance-btc))+' BTC';}
+function setBuyPct(pct){const admin=currentRole==='admin';if(admin){document.getElementById('buyIdr').value=Math.floor(10000000*(pct/100));}else{document.getElementById('buyIdr').value=Math.floor(cash*(pct/100));}previewBuy();}
+function setSellPct(pct){document.getElementById('sellBtc').value=(btcBalance*(pct/100)).toFixed(4);previewSell();}
+function execBuy(){
+  if(!currentUser){toast('Error','Login',1);return;}
+  const admin=currentRole==='admin';const idr=parseFloat(document.getElementById('buyIdr').value);
+  if(!idr||idr<=0){toast('Gagal','Invalid',1);return;}
+  if(!admin&&idr>cash){toast('Dana Kurang',`Saldo Rp ${fmt(Math.round(cash))}`,1);return;}
+  const btc=idr/BTC_RATE;if(!admin)cash-=idr;btcBalance+=btc;
+  btcHistory.unshift({type:'buy',btc:btc,idr:Math.round(idr),time:Date.now()});if(btcHistory.length>50)btcHistory.pop();
+  saveCurrentUser();
+  addExp(10);
+  if(!admin) logTransaction(currentUser, 'out', Math.round(idr), `Beli Bitcoin`);
+  const newTotalTrade = (users[currentUser].totalTrades || 0) + 1;
+  updateUser(currentUser, {totalTrades: newTotalTrade});
+  document.getElementById('buyIdr').value='';toast('₿ Dibeli',`+${fmtBtc(btc)} BTC`);
+}
+function execSell(){
+  if(!currentUser){toast('Error','Login',1);return;}
+  const admin=currentRole==='admin';const btc=parseFloat(document.getElementById('sellBtc').value);
+  if(!btc||btc<=0){toast('Gagal','Invalid',1);return;}
+  if(btc>btcBalance){toast('BTC Kurang',`Hanya ${fmtBtc(btcBalance)}`,1);return;}
+  const idr=btc*BTC_RATE;btcBalance-=btc;if(!admin)cash+=idr;
+  btcHistory.unshift({type:'sell',btc:btc,idr:Math.round(idr),time:Date.now()});if(btcHistory.length>50)btcHistory.pop();
+  saveCurrentUser();
+  addExp(10);
+  if(!admin) logTransaction(currentUser, 'in', Math.round(idr), `Jual Bitcoin`);
+  const newTotalTrade = (users[currentUser].totalTrades || 0) + 1;
+  updateUser(currentUser, {totalTrades: newTotalTrade});
+  document.getElementById('sellBtc').value='';toast('💵 Dijual',`-${fmtBtc(btc)} BTC → +Rp ${fmt(Math.round(idr))}`);
+}
+
+function renderStats(){
+  const keys=Object.keys(users);const nonAdmin=keys.filter(k=>users[k].role!=='admin');
+  let totalSaldo=0,totalBtc=0,totalTrade=0,totalTx=0;
+  nonAdmin.forEach(u=>{totalSaldo+=(users[u].cash||0);totalBtc+=(users[u].btcBalance||0);totalTrade+=(users[u].totalTrades||0);totalTx+=(users[u].btcHistory?.length||0);});
+  document.getElementById('sTotalUser').textContent=nonAdmin.length;
+  document.getElementById('sTotalSaldo').textContent='Rp '+fmt(totalSaldo);
+  document.getElementById('sTotalBtc').textContent=fmtBtc(totalBtc)+' BTC';
+  document.getElementById('sTotalBtcSub').textContent='≈ Rp '+fmt(Math.round(totalBtc*BTC_RATE));
+  document.getElementById('sTotalTrade').textContent=fmt(totalTrade);
+  document.getElementById('hTotalUser').textContent=nonAdmin.length;
+  document.getElementById('hTotalEq').textContent='Rp '+fmt(totalSaldo);
+  document.getElementById('btcTotalCirculating').textContent=fmtBtc(totalBtc)+' BTC';
+  document.getElementById('btcTotalValue').textContent='Rp '+fmt(Math.round(totalBtc*BTC_RATE));
+  document.getElementById('btcHolders').textContent=nonAdmin.filter(u=>(users[u].btcBalance||0)>0).length+' user';
+  document.getElementById('btcTotalTx').textContent=fmt(totalTx)+' tx';
+}
+function renderAdminTable(){
+  const search=(document.getElementById('searchUser').value||'').toLowerCase();
+  const keys=Object.keys(users).filter(u=>u.includes(search));
+  const tbody=document.getElementById('adminTable');
+  document.getElementById('userCount').textContent=keys.length+' user';
+  if(keys.length===0){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px;color:#787b86">Tidak ada user</td></tr>';return;}
+  tbody.innerHTML=keys.map(u=>{
+    const user=users[u];const isAdm=user.role==='admin';const isInf=isAdm||user.cash==='INFINITY';
+    const cash=isInf?'∞':fmt(user.cash||0);const infCls=isInf?'inf':'';
+    const btc=user.btcBalance||0;const trades=user.totalTrades||0;const isCur=u===currentUser;
+    const lvl = getLevelInfo(user.exp || 0).level;
+    return `<tr class="${isCur?'cur':''}"><td><div class="uname">${u} <span class="award-badge award-${user.award || 'user'}" style="${user.award ? '' : 'display:none;'}">${user.award || ''}</span> <span class="rl ${isAdm?'adm':''}">${user.role.toUpperCase()}</span></div><div class="sub">${user.lastLogin?timeAgo(user.lastLogin):'Belum login'}</div></td><td class="r"><span class="bal ${infCls}">${isInf?'∞ INFINITY':'Rp '+cash}</span></td><td class="r"><span class="btc-bal">${fmtBtc(btc)} ₿</span></td><td class="r" style="color:var(--y)">Lv ${lvl}</td><td class="r">${trades}</td><td class="r"><button class="act-btn add" onclick="openEdit('${u}','idr-add')" ${isAdm&&!isCur?'disabled':''}>+</button><button class="act-btn set" onclick="openEdit('${u}','idr-set')" ${isAdm&&!isCur?'disabled':''}>=</button><button class="act-btn btc-btn" onclick="openEdit('${u}','btc-add')">₿+</button><button class="act-btn rev" onclick="revokeUserAssets('${u}')" ${isAdm?'disabled':''}>✕</button><button class="act-btn rst" onclick="resetUser('${u}')" ${isCur||isAdm?'disabled':''}>⚠</button></td></tr>`;
+  }).join('');
+}
+function renderTopUsers(){
+  const keys=Object.keys(users).filter(u=>users[u].role!=='admin'&&users[u].cash!=='INFINITY');
+  keys.sort((a,b)=>(users[b].cash||0)-(users[a].cash||0));
+  const el=document.getElementById('topUsers');const top=keys.slice(0,5);
+  if(top.length===0){el.innerHTML='<div class="act-empty">Belum ada user</div>';return;}
+  el.innerHTML=top.map((u,i)=>`<div class="tu-item"><div class="rank ${i<3?'r'+(i+1):''}">${i+1}</div><div class="info"><div class="nm">${u} <span class="award-badge award-${users[u].award || 'user'}" style="${users[u].award ? '' : 'display:none;'}">${users[u].award || ''}</span></div><div class="dt">${fmtBtc(users[u].btcBalance||0)} BTC</div></div><div class="val">Rp ${fmt(users[u].cash||0)}</div></div>`).join('');
+}
+function renderTopBtc(){
+  const keys=Object.keys(users).filter(u=>users[u].role!=='admin'&&(users[u].btcBalance||0)>0);
+  keys.sort((a,b)=>(users[b].btcBalance||0)-(users[a].btcBalance||0));
+  const el=document.getElementById('topBtcUsers');const top=keys.slice(0,5);
+  if(top.length===0){el.innerHTML='<div class="act-empty">Belum ada holder</div>';return;}
+  el.innerHTML=top.map((u,i)=>`<div class="tu-item"><div class="rank ${i<3?'r'+(i+1):''}">${i+1}</div><div class="info"><div class="nm">${u} <span class="award-badge award-${users[u].award || 'user'}" style="${users[u].award ? '' : 'display:none;'}">${users[u].award || ''}</span></div><div class="dt">Rp ${fmt(users[u].cash||0)}</div></div><div class="val btc">${fmtBtc(users[u].btcBalance||0)} ₿</div></div>`).join('');
+}
+function renderLog(){
+  const el=document.getElementById('actLog');document.getElementById('logCount').textContent=adminLog.length;
+  if(adminLog.length===0){el.innerHTML='<div class="act-empty">Belum ada aktivitas</div>';return;}
+  el.innerHTML=adminLog.slice(0,20).map(l=>`<div class="act-item"><span class="t">${l.time}</span><span class="m">${l.msg}</span></div>`).join('');
+}
+function renderBtcUserList(){
+  const search=(document.getElementById('searchBtcUser')?.value||'').toLowerCase();
+  const keys=Object.keys(users).filter(u=>users[u].role!=='admin'&&u.includes(search));
+  const el=document.getElementById('btcUserList');
+  if(keys.length===0){el.innerHTML='<div class="act-empty">Tidak ada user</div>';return;}
+  el.innerHTML=keys.map(u=>{const user=users[u];const btc=user.btcBalance||0;return `<div class="btc-u-card"><div class="btc-u-row"><div class="btc-u-info"><div class="btc-u-av">₿</div><div class="btc-u-detail"><div class="un">${u} <span class="award-badge award-${user.award || 'user'}" style="${user.award ? '' : 'display:none;'}">${user.award || ''}</span></div><div class="meta">Rp ${fmt(user.cash||0)}</div></div></div><div class="btc-u-balance"><div class="bal">${fmtBtc(btc)} ₿</div><div class="sub">≈ Rp ${fmt(Math.round(btc*BTC_RATE))}</div></div></div><div class="btc-u-actions"><button class="add" onclick="openEdit('${u}','btc-add')">+ Tambah</button><button class="set" onclick="openEdit('${u}','btc-set')">= Set</button><button class="rst" onclick="resetBtcUser('${u}')">⚠ Reset</button></div></div>`;}).join('');
+}
+function openEdit(username,mode){
+  const user=users[username];if(!user)return;
+  if(user.role==='admin'&&username!==currentUser&&mode.startsWith('idr')){toast('Gagal','Admin infinity',1);return;}
+  editMode=mode;editTarget=username;
+  const isBtc=mode.startsWith('btc');const isAdd=mode.endsWith('add');
+  document.getElementById('mTitle').textContent=isBtc?(isAdd?'₿ Tambah BTC':'₿ Set BTC'):(isAdd?'➕ Tambah Saldo IDR':'🎯 Set Saldo IDR');
+  let curDisplay;if(isBtc)curDisplay=fmtBtc(user.btcBalance||0)+' ₿';else curDisplay=(user.cash==='INFINITY'||user.role==='admin')?'∞':'Rp '+fmt(user.cash||0);
+  document.getElementById('mSub').innerHTML=`User: <b class="${isBtc?'btc':''}">${username}</b> • Sekarang: <b class="${isBtc?'btc':''}">${curDisplay}</b>`;
+  document.getElementById('mAmount').value=isBtc?'1':'500000';document.getElementById('mAmount').step=isBtc?'0.1':'1';
+  document.getElementById('mConfirm').className='confirm'+(isBtc?' btc-confirm':'');
+  document.querySelector('.mbox').className='mbox'+(isBtc?' btc-modal':'');
+  const quickVals=isBtc?[0.1,1,10,100,1000,10000,100000,1000000]:[500000,1000000,5000000,10000000,25000000,50000000,100000000,500000000];
+  document.getElementById('mQuick').className='quick'+(isBtc?' btc-quick-m':'');
+  document.getElementById('mQuick').innerHTML=quickVals.map(v=>{const lbl=isBtc?v.toString():(v>=1000000?(v/1000000)+'JT':(v/1000)+'RB');return `<button onclick="document.getElementById('mAmount').value=${v}">${lbl}</button>`;}).join('');
+  document.getElementById('editModal').classList.add('on');setTimeout(()=>document.getElementById('mAmount').focus(),100);
+}
+function closeModal(){document.getElementById('editModal').classList.remove('on');editMode=null;editTarget=null;}
+function confirmEdit(){
+  if(!editMode||!editTarget)return;
+  const amount=parseFloat(document.getElementById('mAmount').value);
+  if(!amount||amount<=0){toast('Gagal','Invalid',1);return;}
+  const user=users[editTarget];if(!user)return;
+  const isBtc=editMode.startsWith('btc');const isAdd=editMode.endsWith('add');
+  if(isBtc){
+    if(user.role==='admin'){toast('Gagal','Admin tidak punya BTC',1);closeModal();return;}
+    const newBtc=isAdd?(user.btcBalance||0)+amount:amount;
+    updateUser(editTarget,{btcBalance:newBtc});
+    logAdmin(`₿ ${isAdd?'Top-up':'Set'} BTC <b>${editTarget}</b>: <span class="btc-hl">${isAdd?'+':''}${fmtBtc(amount)} ₿</span>`);
+    toast('₿ BTC '+(isAdd?'Ditambah':'Di-Set'),`${editTarget} ${isAdd?'+':''}${fmtBtc(amount)} ₿`);
+  }else{
+    if(user.role==='admin'){toast('Gagal','Invalid',1);closeModal();return;}
+    const newCash=isAdd?(user.cash||0)+amount:amount;
+    updateUser(editTarget,{cash:newCash});
+    logAdmin(`💰 ${isAdd?'Top-up':'Set'} IDR <b>${editTarget}</b>: <span class="plus">${isAdd?'+':''}Rp ${fmt(amount)}</span>`);
+    toast('✅ Saldo '+(isAdd?'Ditambah':'Di-Set'),`${editTarget} ${isAdd?'+':''}Rp ${fmt(amount)}`);
+  }
+  closeModal();
+}
+function resetUser(username){
+  if(username===currentUser){toast('Gagal','Tidak bisa reset diri',1);return;}
+  const user=users[username];if(!user||user.role==='admin'){toast('Gagal','Invalid',1);return;}
+  if(!confirm(`Reset saldo IDR "${username}" ke Rp 500.000?`))return;
+  updateUser(username,{cash:500000});
+  logAdmin(`🔄 Reset IDR <b>${username}</b> → <span class="minus">Rp 500.000</span>`);
+  toast('🔄 Saldo Di-Reset',`${username} → Rp 500.000`);
+}
+function resetBtcUser(username){
+  const user=users[username];if(!user||user.role==='admin'){toast('Gagal','Invalid',1);return;}
+  if(!confirm(`Reset BTC "${username}" ke 0?`))return;
+  updateUser(username,{btcBalance:0});
+  logAdmin(`₿ Reset BTC <b>${username}</b> → <span class="minus">0 ₿</span>`);
+  toast('₿ BTC Di-Reset',`${username} → 0 ₿`);
+}
+function adminTopupAllBtc(){
+  const amount=parseFloat(document.getElementById('btcTopupAmount').value);
+  if(!amount||amount<=0){toast('Gagal','Invalid',1);return;}
+  const nonAdmin=Object.keys(users).filter(u=>users[u].role!=='admin');
+  if(!confirm(`Top-up ${fmtBtc(amount)} BTC ke ${nonAdmin.length} user?`))return;
+  const updates={};
+  nonAdmin.forEach(u=>{updates[u+'/btcBalance']=(users[u].btcBalance||0)+amount;});
+  usersRef.update(updates);
+  logAdmin(`₿ Top-up ALL: <span class="btc-hl">+${fmtBtc(amount)} ₿</span> × ${nonAdmin.length} user`);
+  toast('₿ Top-Up Semua',`+${fmtBtc(amount)} BTC × ${nonAdmin.length} user`);
+}
+function adminResetAllBtc(){
+  if(!confirm('Reset BTC SEMUA user ke 0?'))return;
+  const updates={};
+  Object.keys(users).forEach(u=>{if(users[u].role==='admin')return;updates[u+'/btcBalance']=0;});
+  usersRef.update(updates);
+  logAdmin(`₿ Reset ALL BTC → <span class="minus">0 ₿</span>`);toast('₿ Reset Semua','Semua BTC di-reset');
+}
+function adminRemoveAllBtc(){
+  if(!confirm('HAPUS BTC SEMUA user?'))return;
+  const updates={};
+  Object.keys(users).forEach(u=>{if(users[u].role==='admin')return;updates[u+'/btcBalance']=0;updates[u+'/btcHistory']=null;});
+  usersRef.update(updates);
+  logAdmin(`₿ Hapus ALL BTC user`);toast('₿ BTC Dihapus','Semua BTC dihapus');
+}
+function logAdmin(msg){
+  const time=new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  adminLog.unshift({time,msg});if(adminLog.length>50)adminLog.pop();
+  renderLog();
+}
+let tT;
+function toast(t,m,err=0){
+  const e=document.getElementById('ts2');document.getElementById('tst').textContent=t;document.getElementById('tsm').textContent=m;
+  e.className='ts on'+(err?' err':'');clearTimeout(tT);tT=setTimeout(()=>e.classList.remove('on'),3000);
+}
+document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.pb').forEach(x=>x.classList.remove('on'));t.classList.add('on');document.getElementById('pb-'+t.dataset.tab).classList.add('on');});});
+document.querySelectorAll('.tf').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.tf').forEach(x=>x.classList.remove('on'));b.classList.add('on');draw();});});
+document.querySelectorAll('.tbtn[data-i]').forEach(b=>{b.addEventListener('click',()=>{const k=b.dataset.i;ind[k]=!ind[k];b.classList.toggle('on',ind[k]);draw();});});
+const momentum={};S.forEach(s=>momentum[s.code]=0);
+function tick(){
+  S.forEach(s=>{
+    const tk=ts(s.price);momentum[s.code]=momentum[s.code]*0.7+(Math.random()-0.5)*2;
+    let move=Math.round((momentum[s.code]*tk*0.5+(Math.random()-0.5)*tk*2)/tk)*tk;
+    if(Math.random()<0.1)move=0;s.price+=move;if(s.price<tk*5)s.price=tk*5;
+    const l=candles[s.code][candles[s.code].length-1];l.c=s.price;l.h=Math.max(l.h,s.price);l.l=Math.min(l.l,s.price);
+  });
+  renderAll();if(curView==='admin')renderAdminAll();
+  document.getElementById('ihsg').textContent=(7245+(Math.random()-0.5)*10).toFixed(2).replace('.',',');
+}
+function clk(){
+  const n=new Date();const t=n.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+' WIB';
+  document.getElementById('clk').textContent=t;document.getElementById('clkAdm').textContent=t;
+}
+setInterval(()=>{cd--;if(cd<=0){cd=3;tick();}clk();},1000);
+['liPass'].forEach(id=>document.getElementById(id).addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();}));
+['rgPass2'].forEach(id=>document.getElementById(id).addEventListener('keypress',e=>{if(e.key==='Enter')doRegister();}));
+
+// BOOT
+initC();selS('BBCA');rPF();renderBtc();clk();updOI();
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(draw,80);});
+initFirebase();
+
+setTimeout(()=>{
+  try{const s=localStorage.getItem('ffm_cur_v5');if(s&&users[s])loginAs(s);}catch(e){}
+},1500);
+</script>
+</body>
+</html>
